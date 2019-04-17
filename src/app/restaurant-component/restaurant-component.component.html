@@ -1,0 +1,54 @@
+<p>
+ Hello!
+</p>
+<form *ngIf="showInitialInfo">
+<p>Your initial data:</p>
+<p>Login: {{restaurant.username}}</p>
+<p>Restaurant name: {{restaurant.name}}</p>
+<p>Restaurant address: {{restaurant.address}}</p>
+<p>Email: {{restaurant.email}}</p>
+<p>Phone Number: {{restaurant.phoneNumber}}</p>
+<p>Additional info: {{restaurant.additionalInfo}}</p>
+</form>
+<form *ngIf="showUpdateButton">
+  <button (click)="showUpdate()">Update my initial data</button>
+</form>
+
+
+<form *ngIf="showUpdateForm" #formToBeUpdated >
+
+  <label>Name:
+    <input [ngModel]="restaurant.name" [(ngModel)]="restaurantToUpdate.name" type="text"
+           name="name" placeholder="name">
+  </label><br>
+  <label>Address:
+    <input [ngModel]="restaurant.address" [(ngModel)]="restaurantToUpdate.address" type="text"
+           name="address" placeholder="address">
+  </label><br>
+  <label>Email:
+    <input [ngModel]="restaurant.email" [(ngModel)]="restaurantToUpdate.email" type="text"
+           name="email" placeholder="email">
+  </label><br>
+  <label>Phone Number:
+    <input [ngModel]="restaurant.phoneNumber" [(ngModel)]="restaurantToUpdate.phoneNumber" type="text"
+           name="phoneNumber" placeholder="phoneNumber">
+  </label><br>
+  <label>Additional Information:
+    <input [ngModel]="restaurant.additionalInfo" [(ngModel)]="restaurantToUpdate.additionalInfo" type="text"
+           name="additionalInfo" placeholder="additionalInfo">
+  </label><br>
+  <button  (click)="updateRestaurant(formToBeUpdated)" type="button">Save Changes</button>
+</form>
+<h4>{{responseOnUpdate}}</h4>
+<form *ngIf="showReset">
+<button (click)="resetInitialData()">Show initial Data</button>
+</form>
+
+<form *ngIf="showGoToOptions">
+  <button (click)="goToMenuSections()">Go to My Menu Sections</button>
+  <button (click)="goToAvatars()">Go to My Avatars</button>
+  <button (click)="goToMeals()">Go to My Meals</button>
+  <button (click)="goToOrders()">Go to My Orders</button>
+
+</form>
+

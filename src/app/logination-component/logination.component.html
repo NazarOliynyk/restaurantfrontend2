@@ -1,0 +1,22 @@
+<p>
+  LOGINATION
+</p>
+
+<h3>{{responseLogination}}</h3>
+
+<form *ngIf="hideLoginForm" #formLogin>
+
+  <label>Login:<br>
+    <input  [(ngModel)]="user.username" type="text"
+            name="username" placeholder="username" size="10"></label><br>
+
+  <label>Password:<br>
+    <input [(ngModel)]="user.password" type="password"
+           name="password" placeholder="password" size="10"></label><br>
+
+  <button  (click)="login(formLogin)" type="button">Log In</button>
+</form>
+
+
+<router-outlet></router-outlet>
+

@@ -1,0 +1,19 @@
+<p>
+  menusection-component works!
+</p>
+<p>{{restaurant.username}}</p>
+<p>{{restaurant.name}}</p>
+
+<form>
+  <button (click)="backToAccount()">Get Back to my Account</button>
+</form>
+
+<ul>
+  The list of Menu Sections:
+  <li *ngFor="let menuSection of menuSections">
+    <!--<a [routerLink]="menuSection.id" [queryParams]="user">ID: {{user.id}}</a>-->
+    <p>NAME: {{menuSection.name}}</p>
+
+    <button (click)="deleteMenuSection(menuSection)" *ngIf="!userToBeDeleted">DELETE</button>
+  </li>
+</ul>

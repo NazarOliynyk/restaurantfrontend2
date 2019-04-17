@@ -1,0 +1,32 @@
+<p>
+  Hello!
+</p>
+<form *ngIf="showInitialInfo">
+  <p>Your initial data:</p>
+  <p>Login: {{client.username}}</p>
+  <p>Email: {{client.email}}</p>
+  </form>
+<form *ngIf="showUpdateButton">
+  <button (click)="showUpdate()">Update my initial data</button>
+</form>
+
+<form *ngIf="showUpdateForm" #formToBeUpdated >
+
+  <label>Email:
+    <input [ngModel]="client.email" [(ngModel)]="clientToUpdate.email" type="text"
+           name="email" placeholder="email">
+  </label><br>
+
+  <button  (click)="updateClient(formToBeUpdated)" type="button">Save Changes</button>
+</form>
+<h4>{{responseOnUpdate}}</h4>
+<form *ngIf="showReset">
+  <button (click)="resetInitialData()">Show initial Data</button>
+</form>
+
+<form *ngIf="showGoToOptions">
+
+  <button (click)="goToOrders()">Go to My Orders</button>
+
+</form>
+

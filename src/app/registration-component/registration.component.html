@@ -1,0 +1,61 @@
+
+  <h2>REGISTRATION</h2>
+
+  <button (click)="regRest()">Register a new Restaurant</button><br>
+  <button (click)="regClient()">Register a new Client</button><br>
+
+  <h3>{{responseRegistration}}</h3>
+
+  <form *ngIf="chooseFormRestaurant" #formRegisterR>
+
+    <label>Login:<br>
+    <input  [(ngModel)]="restaurant.username" type="text"
+            name="username" placeholder="username" size="10"></label><br>
+
+    <label>Password:<br>
+    <input [(ngModel)]="restaurant.password" type="password"
+           name="password" placeholder="password" size="10"></label><br>
+
+    <label>Name of the Restaurant:<br>
+    <input [(ngModel)]="restaurant.name" type="text"
+           name="name" placeholder="name" size="40"></label><br>
+
+    <label>Address of the Restaurant:<br>
+    <input [(ngModel)]="restaurant.address" type="text"
+           name="address" placeholder="address" size="80"></label><br>
+
+    <label>Email:<br>
+    <input [(ngModel)]="restaurant.email" type="email"
+           name="email" placeholder="email" size="40"></label><br>
+
+    <label>Phone Number:<br>
+    <input [(ngModel)]="restaurant.phoneNumber" type="text"
+           name="phone number" placeholder="phone number" size="17"></label><br>
+
+    <label>Additional Information:<br>
+    <input [(ngModel)]="restaurant.additionalInfo" type="text"
+           name="additionalInfo" placeholder="additional information" size="80"></label><br>
+
+    <button  (click)="registerRestaurant(formRegisterR)" type="button">Sign In</button>
+  </form>
+
+
+  <form *ngIf="chooseFormClient" #formRegisterC>
+
+    <label>Login:<br>
+      <input  [(ngModel)]="client.username" type="text"
+              name="username" placeholder="username" size="10"></label><br>
+
+    <label>Password:<br>
+      <input [(ngModel)]="client.password" type="password"
+             name="password" placeholder="password" size="10"></label><br>
+
+    <label>Email:<br>
+      <input [(ngModel)]="client.email" type="email"
+             name="email" placeholder="email" size="40"></label><br>
+
+    <button  (click)="registerClient(formRegisterC)" type="button">Sign In</button>
+  </form>
+
+
+
