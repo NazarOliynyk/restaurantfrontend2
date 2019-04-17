@@ -11,6 +11,5 @@ export class Client extends User {
     public clientPositiveResponses: number = 0,
     public clientNegativeResponses: number = 0,
     public orders: OrderMeal [] = []
-  ) {
-    super(id, username, password , email); }
+  ) { super(id, username, password , email); }
 }

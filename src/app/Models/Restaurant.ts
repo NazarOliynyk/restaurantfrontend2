@@ -21,7 +21,5 @@ export class Restaurant extends User {
     public menuSections: MenuSection [] = [],
     public meals: Meal [] = [],
     public orders: OrderMeal [] = []
-
-  ) {
-    super(id, username, password, email); }
+  ) { super(id, username, password , email); }
 }

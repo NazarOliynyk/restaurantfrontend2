@@ -6,6 +6,6 @@ export class User {
     public username: string = '',
     public password: string = '',
     public email: string = '',
-    public role: Role = Role.ROLE_USER
+    // public role: Role = Role.ROLE_USER
   ) {}
 }

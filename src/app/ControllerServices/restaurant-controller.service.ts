@@ -7,6 +7,7 @@ import {Client} from '../Models/Client';
 import {MenuSection} from '../Models/MenuSection';
 import {Meal} from '../Models/Meal';
 import {OrderMeal} from '../Models/OrderMeal';
+import {ResponseTransfer} from '../Models/ResponseTransfer';
 
 @Injectable({
   providedIn: 'root'
@@ -19,50 +20,50 @@ export class RestaurantControllerService {
     private http: HttpClient
   ) { }
 
-  saveMenuSection(menuSection: MenuSection): Observable<string> {
-    return this.http.post<string>(this.url + '/saveMenuSection', menuSection);
+  saveMenuSection(menuSection: MenuSection): Observable<ResponseTransfer> {
+    return this.http.post<ResponseTransfer>(this.url + '/saveMenuSection', menuSection);
   }
 
-  deleteMenuSection(id: number): Observable<string> {
-    return this.http.delete<string>(this.url + '/deleteMenuSection' + id);
+  deleteMenuSection(id: number): Observable<ResponseTransfer> {
+    return this.http.delete<ResponseTransfer>(this.url + '/deleteMenuSection' + id);
   }
 
-  saveMeal(meal: Meal): Observable<string> {
-    return this.http.post<string>(this.url + '/saveMeal', meal);
+  saveMeal(meal: Meal): Observable<ResponseTransfer> {
+    return this.http.post<ResponseTransfer>(this.url + '/saveMeal', meal);
   }
 
-  deleteMeal(id: number): Observable<string> {
-    return this.http.delete<string>(this.url + '/deleteMeal' + id);
+  deleteMeal(id: number): Observable<ResponseTransfer> {
+    return this.http.delete<ResponseTransfer>(this.url + '/deleteMeal' + id);
   }
 
-  saveAvatar(id: number, image: File): Observable<string> {
-    return this.http.post<string>(this.url + '/saveAvatar', image);
+  saveAvatar(id: number, image: File): Observable<ResponseTransfer> {
+    return this.http.post<ResponseTransfer>(this.url + '/saveAvatar', image);
   }
 
-  deleteAvatar(id: number): Observable<string> {
-    return this.http.delete<string>(this.url + '/deleteAvatar' + id);
+  deleteAvatar(id: number): Observable<ResponseTransfer> {
+    return this.http.delete<ResponseTransfer>(this.url + '/deleteAvatar' + id);
   }
 
-  acceptOrderToKitchen(order: OrderMeal): Observable<string> {
-    return this.http.post<string>(this.url + '/acceptOrderToKitchen', order);
+  acceptOrderToKitchen(order: OrderMeal): Observable<ResponseTransfer> {
+    return this.http.post<ResponseTransfer>(this.url + '/acceptOrderToKitchen', order);
   }
 
-  cancelOrderByRestaurant(id: number, reasonOfCancelation: string): Observable<string> {
-    return this.http.post<string>
+  cancelOrderByRestaurant(id: number, reasonOfCancelation: string): Observable<ResponseTransfer> {
+    return this.http.post<ResponseTransfer>
     (this.url + '/reasonOfCancelation', reasonOfCancelation);
   }
 
-  deleteOrderByRestaurant(id: number): Observable<string> {
-    return this.http.delete<string>(this.url + '/deleteOrderByRestaurant' + id);
+  deleteOrderByRestaurant(id: number): Observable<ResponseTransfer> {
+    return this.http.delete<ResponseTransfer>(this.url + '/deleteOrderByRestaurant' + id);
   }
 
-  negativeFromRestaurant(id: number, descriptionFromRestaurant: string): Observable<string> {
-    return this.http.post<string>
+  negativeFromRestaurant(id: number, descriptionFromRestaurant: string): Observable<ResponseTransfer> {
+    return this.http.post<ResponseTransfer>
     (this.url + '/negativeFromRestaurant' + id, descriptionFromRestaurant);
   }
 
-  positiveFromRestaurant(id: number, descriptionFromRestaurant: string): Observable<string> {
-    return this.http.post<string>
+  positiveFromRestaurant(id: number, descriptionFromRestaurant: string): Observable<ResponseTransfer> {
+    return this.http.post<ResponseTransfer>
     (this.url + '/positiveFromRestaurant' + id, descriptionFromRestaurant);
   }
 }

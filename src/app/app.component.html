@@ -1,2 +1,22 @@
-<h1>Hello!</h1>
+
+<h1>
+  Welcome  to {{ title }}!
+</h1>
+<form *ngIf="greeting">
+  <h3>Hello {{user.username}}!</h3>
+  <button (click)="deleteAccount(user)">Delete an account</button>
+</form>
+
+<p>{{responseOnDelete}}</p>
+
+<form *ngIf="showSignInButton">
+    <button routerLink="register">Sign in</button><br>
+</form>
+
+<form >
+  <button (click)="logOut()">Log in / Log out</button>
+</form>
+
+<router-outlet></router-outlet>
+
 

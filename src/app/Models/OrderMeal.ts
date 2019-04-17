@@ -1,6 +1,7 @@
 import {Client} from './Client';
 import {Restaurant} from './Restaurant';
 import {Meal} from './Meal';
+// import {TypeOfResponse} from './TypeOfResponse';
 
 export class OrderMeal {
 
@@ -11,8 +12,8 @@ export class OrderMeal {
     public descriptionFromClient: string = '',
     public descriptionFromRestaurant: string = '',
     public orderStatus: OrderStatus = null,
-    public responseFromClient: ResponseType = null,
-    public responseFromRestaurant: ResponseType = null,
+    public responseFromClient: TypeOfResponse = null,
+    public responseFromRestaurant: TypeOfResponse = null,
     public client: Client = new Client(),
     public restaurant: Restaurant = new Restaurant(),
     public meals: Meal [] = []
