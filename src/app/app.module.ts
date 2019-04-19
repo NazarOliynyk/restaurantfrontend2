@@ -1,3 +1,7 @@
+
+import { SafeHtmlPipe } from './Pipes/safe-html.pipe';
+
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -14,6 +18,7 @@ import { MenusectionComponentComponent } from './menusection-component/menusecti
 import { OrderforclientComponentComponent } from './orderforclient-component/orderforclient-component.component';
 import { OrderforrestaurantComponentComponent } from './orderforrestaurant-component/orderforrestaurant-component.component';
 import { AvatarComponentComponent } from './avatar-component/avatar-component.component';
+
 
 const routes: Routes = [
    {path: 'app', component: AppComponent},
@@ -45,6 +50,7 @@ const routes: Routes = [
     OrderforclientComponentComponent,
     OrderforrestaurantComponentComponent,
     AvatarComponentComponent,
+    SafeHtmlPipe,
     // UsersComponent,
     // SingleUserComponent,
     // UpdateComponent

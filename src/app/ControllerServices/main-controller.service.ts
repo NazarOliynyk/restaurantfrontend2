@@ -9,6 +9,8 @@ import {MenuSection} from '../Models/MenuSection';
 import {Meal} from '../Models/Meal';
 import {OrderMeal} from '../Models/OrderMeal';
 import {ResponseTransfer} from '../Models/ResponseTransfer';
+import {Avatar} from '../Models/Avatar';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -71,10 +73,23 @@ export class MainControllerService {
       this.url + '/getClients', {headers: headersOption});
   }
 
-  // getMenuSections(restaurant: Restaurant, headersOption: HttpHeaders): Observable<MenuSection []> {
-  //   return this.http.post<MenuSection[]> (
-  //     this.url + '/getMenuSections', restaurant, {headers: headersOption});
-  // }
+  getAvatars(restaurant: Restaurant, headersOption: HttpHeaders): Observable<Avatar []> {
+    return this.http.get<Avatar[]> (
+      this.url + '/getAvatars/' + restaurant.id, {headers: headersOption});
+  }
+
+  getFiles(restaurant: Restaurant, headersOption: HttpHeaders): Observable<File []> {
+    return this.http.get<File[]> (
+      this.url + '/getFiles/' + restaurant.id, {headers: headersOption});
+  }
+
+  getImages(restaurant: Restaurant, headersOption: HttpHeaders): Observable<any[]> {
+    return this.http.get<any[]> (
+      this.url + '/getImages/' + restaurant.id, {headers: headersOption});
+    // pipe(map((response: Response) => {
+    //   return response;
+    // }));
+  }
 
   getMenuSections(restaurant: Restaurant, headersOption: HttpHeaders): Observable<MenuSection []> {
     return this.http.get<MenuSection []> (

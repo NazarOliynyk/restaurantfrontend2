@@ -1,10 +1,48 @@
+<!--suppress ALL -->
 <p>
-  avatar-component works!
+  menusection-component works!
 </p>
-
 <p>{{restaurant.username}}</p>
 <p>{{restaurant.name}}</p>
 
 <form>
   <button (click)="backToAccount()">Get Back to my Account</button>
 </form>
+
+<form *ngIf="showFormAddAvatar" #avatarForm >
+
+  <label>Add a new image to your Restaurant portfolio:<br>
+    <input   type="file"  (change)="handleFileInput($event.target.files)"></label>
+  <button (click)="saveAvatar(avatarForm)">Save image</button><br>
+  {{responseOnSaveAvatar}}
+  {{responseOnDelete}}
+</form>
+
+<button (click)="getListOfAvatars(restaurant)">Show All my images</button><br>
+
+<form *ngIf="showListOfAvatars">
+  <!--<ul>-->
+    <!--All my Images:-->
+    <!--<li *ngFor="let image of images">-->
+
+      <!--<iframe [src]="image | safeHtml"></iframe>-->
+
+      <!--<button (click)="delete(avatar)">DELETE</button>-->
+    <!--</li>-->
+  <!--</ul>-->
+
+  <ul>
+    All my Images:
+    <li *ngFor="let avatar of avatars">
+
+      <iframe [src]=" 'D:\\FotoSpringRestaurantBackEnd2Rest'+avatar.image | safeHtml"></iframe>
+      <p>{{avatar.image.toString()}}</p>
+      <button (click)="delete(avatar)">DELETE</button>
+    </li>
+  </ul>
+</form>
+
+
+
+
+

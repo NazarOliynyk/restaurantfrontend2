@@ -16,6 +16,14 @@ export class MenusectionComponentComponent implements OnInit {
   restaurant: Restaurant = new Restaurant();
   menuSections: MenuSection [] = [];
   headersOption: HttpHeaders;
+  menuSection: MenuSection = new MenuSection();
+  responseOnSaveMenuSection = '';
+  showListOfMenuSections = false;
+  showUpdateForm = false;
+  menuSectionToUpdate: MenuSection = new MenuSection();
+  responseOnUpdate = '';
+  showFormAddMenuSection = true;
+  responseOnDelete = '';
 
   constructor(private activatedRoute: ActivatedRoute,
               private mainControllerService: MainControllerService,
@@ -25,10 +33,6 @@ export class MenusectionComponentComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((data: Restaurant) => {
       this.restaurant = data;
-      this.headersOption =
-        new HttpHeaders({'Authorization': localStorage.getItem('_token')});
-      this.mainControllerService.getMenuSections(this.restaurant, this.headersOption).
-      subscribe(menuSections  => this.menuSections = menuSections);
     });
   }
 
@@ -36,7 +40,56 @@ export class MenusectionComponentComponent implements OnInit {
     this.router.navigate(['restaurant'], {queryParams: this.restaurant});
   }
 
-  deleteMenuSection(menuSection: MenuSection) {
+  saveMenuSection(menuSectionForm: HTMLFormElement) {
+    console.log(this.menuSection.name);
+    this.headersOption =
+      new HttpHeaders({'Authorization': localStorage.getItem('_token')});
+    this.restaurantControllerService.saveMenuSection(
+      this.restaurant.id, this.menuSection, this.headersOption).
+    subscribe(data => {this.responseOnSaveMenuSection = data.text;
+    this.menuSection = new MenuSection(); },
+      error1 => this.responseOnSaveMenuSection = 'Failed to save!');
+  }
 
+  getListOfMenuSections(restaurant: Restaurant) {
+    this.headersOption =
+      new HttpHeaders({'Authorization': localStorage.getItem('_token')});
+    this.mainControllerService.getMenuSections(this.restaurant, this.headersOption).
+    subscribe(menuSections  => this.menuSections = menuSections);
+    this.showListOfMenuSections = true;
+  }
+
+  update(menuSection: MenuSection) {
+    this.showListOfMenuSections = false;
+    this.showUpdateForm = true;
+    this.menuSection = menuSection;
+    this.showFormAddMenuSection = false;
+  }
+
+  updateMenuSection(formToBeUpdated: HTMLFormElement) {
+    this.menuSectionToUpdate.id = this.menuSection.id;
+    this.headersOption =
+      new HttpHeaders({'Authorization': localStorage.getItem('_token')});
+    this.restaurantControllerService.saveMenuSection(
+      this.restaurant.id, this.menuSectionToUpdate, this.headersOption).
+    subscribe(data => {this.responseOnSaveMenuSection = data.text;
+        this.showUpdateForm = false;
+        this.showFormAddMenuSection = true;
+        this.menuSection = new MenuSection(); },
+      error1 => this.responseOnSaveMenuSection = 'Failed to update!');
+
+  }
+
+
+  delete(menuSection: MenuSection) {
+    this.menuSection = menuSection;
+    this.headersOption =
+      new HttpHeaders({'Authorization': localStorage.getItem('_token')});
+    this.restaurantControllerService.deleteMenuSection(this.menuSection.id, this.headersOption).
+    subscribe(data => { this.responseOnDelete = data.text;
+      this.showUpdateForm = false;
+      this.showFormAddMenuSection = true;
+      this.menuSection = new MenuSection(); },
+        error1 => this.responseOnDelete = 'Failed To Delete' );
   }
 }

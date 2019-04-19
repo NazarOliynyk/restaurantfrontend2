@@ -57,7 +57,9 @@ export class RegistrationComponent implements OnInit {
     this.mainControllerService.saveRestaurant(this.restaurant)
       .subscribe(u => {
         this.responseRegistration = u.text;
-        console.log(u.text); } );
+        console.log(u.text); },
+        error1 => { console.log(error1);
+        this.responseRegistration = 'Registration Failed'; } );
 
   }
 
@@ -69,6 +71,8 @@ export class RegistrationComponent implements OnInit {
     this.mainControllerService.saveClient(this.client)
       .subscribe(u => {
         this.responseRegistration = u.text;
-        console.log(u.text); } );
+        console.log(u.text); },
+        error1 => { console.log(error1);
+          this.responseRegistration = 'Registration Failed'; } );
   }
 }

@@ -8,12 +8,39 @@
   <button (click)="backToAccount()">Get Back to my Account</button>
 </form>
 
-<ul>
-  The list of Menu Sections:
-  <li *ngFor="let menuSection of menuSections">
-    <!--<a [routerLink]="menuSection.id" [queryParams]="user">ID: {{user.id}}</a>-->
-    <p>NAME: {{menuSection.name}}</p>
+<form *ngIf="showFormAddMenuSection" #menuSectionForm >
 
-    <button (click)="deleteMenuSection(menuSection)" *ngIf="!userToBeDeleted">DELETE</button>
-  </li>
-</ul>
+  <label>Add a new Menu Section to the menu of your Restaurant:<br>
+    <input  [(ngModel)]="menuSection.name" type="text"
+            name="name" placeholder="name" size="30"></label>
+  <button (click)="saveMenuSection(menuSectionForm)">Save Menu Section</button><br>
+  {{responseOnSaveMenuSection}}
+  {{responseOnDelete}}
+</form>
+
+<button (click)="getListOfMenuSections(restaurant)">Show All my Menu Sections</button><br>
+
+<form *ngIf="showListOfMenuSections">
+    <ul>
+      The list of Menu Sections:
+      <li *ngFor="let menuSection of menuSections">
+        <p>NAME: {{menuSection.name}}</p>
+        <button (click)="update(menuSection)" >UPDATE</button>
+        <button (click)="delete(menuSection)" >DELETE</button>
+      </li>
+    </ul>
+</form>
+
+<form *ngIf="showUpdateForm" #formToBeUpdated >
+
+  <label>Name:
+    <input [ngModel]="menuSection.name" [(ngModel)]="menuSectionToUpdate.name" type="text"
+           name="name" placeholder="name">
+  </label><br>
+
+  <button  (click)="updateMenuSection(formToBeUpdated)" type="button">Save Changes</button>
+  <h4>{{responseOnUpdate}}</h4>
+
+</form>
+
+
