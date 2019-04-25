@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {OrderMeal} from '../Models/OrderMeal';
 import {ResponseTransfer} from '../Models/ResponseTransfer';
+import {Meal} from '../Models/Meal';
 
 @Injectable({
   providedIn: 'root'
@@ -15,30 +16,37 @@ export class ClientControllerService {
     private http: HttpClient
   ) { }
 
-  saveOrder(order: OrderMeal): Observable<ResponseTransfer> {
-    return this.http.post<ResponseTransfer>(this.url + '/saveOrder', order);
+  saveOrder(id: number, ids: number[], headersOption: HttpHeaders): Observable<ResponseTransfer> {
+    return this.http.post<ResponseTransfer>(
+      this.url + '/saveOrder/' + id, ids, {headers: headersOption});
   }
 
-  deleteOrder(id: number): Observable<ResponseTransfer> {
-    return this.http.delete<ResponseTransfer>(this.url + '/deleteOrder' + id);
+  deleteOrder(id: number, headersOption: HttpHeaders): Observable<ResponseTransfer> {
+    return this.http.delete<ResponseTransfer>(
+      this.url + '/deleteOrder/' + id, {headers: headersOption});
   }
 
-  cancelOrderByClient(id: number, reasonOfCancelation: string): Observable<ResponseTransfer> {
+  getMealsOfOrder(id: number, headersOption: HttpHeaders): Observable<Meal[]> {
+    return this.http.get<Meal[]>(this.url + '/getMealsOfOrder/' + id, {headers: headersOption});
+  }
+
+  cancelOrderByClient(id: number, reasonOfCancelation: string, headersOption: HttpHeaders): Observable<ResponseTransfer> {
     return this.http.post<ResponseTransfer>
-    (this.url + '/cancelOrderByClient' + id, reasonOfCancelation);
+    (this.url + '/cancelOrderByClient/' + id, reasonOfCancelation, {headers: headersOption});
   }
 
-  confirmOrderServed(order: OrderMeal): Observable<ResponseTransfer> {
-    return this.http.post<ResponseTransfer>(this.url + '/confirmOrderServed', order);
-  }
-
-  negativeFromClient(id: number, descriptionFromClient: string): Observable<ResponseTransfer> {
+  confirmOrderServed(id: number, reasonOfCancelation: string, headersOption: HttpHeaders): Observable<ResponseTransfer> {
     return this.http.post<ResponseTransfer>
-    (this.url + '/negativeFromClient' + id, descriptionFromClient);
+    (this.url + '/confirmOrderServed/' + id, reasonOfCancelation, {headers: headersOption});
   }
 
-  positiveFromClient(id: number, descriptionFromClient: string): Observable<ResponseTransfer> {
+  negativeFromClient(id: number, descriptionFromClient: string, headersOption: HttpHeaders): Observable<ResponseTransfer> {
     return this.http.post<ResponseTransfer>
-    (this.url + '/positiveFromClient' + id, descriptionFromClient);
+    (this.url + '/negativeFromClient/' + id, descriptionFromClient, {headers: headersOption});
+  }
+
+  positiveFromClient(id: number, descriptionFromClient: string, headersOption: HttpHeaders): Observable<ResponseTransfer> {
+    return this.http.post<ResponseTransfer>
+    (this.url + '/positiveFromClient/' + id, descriptionFromClient, {headers: headersOption});
   }
 }

@@ -33,15 +33,17 @@
 
   <ul>
     All my Images:
+
     <li *ngFor="let avatar of avatars">
 
-      <iframe [src]=" 'D:\\FotoSpringRestaurantBackEnd2Rest'+avatar.image | safeHtml"></iframe>
+      <img [src]="'assets/images/'+avatar.image" alt="">
+
       <p>{{avatar.image.toString()}}</p>
       <button (click)="delete(avatar)">DELETE</button>
     </li>
   </ul>
-</form>
 
+</form>
 
 
 

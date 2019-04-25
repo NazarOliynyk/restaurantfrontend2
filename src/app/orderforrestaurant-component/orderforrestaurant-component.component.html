@@ -1,5 +1,5 @@
 <p>
-  orderforrestaurant-component works!
+  orderfor restaurant-component
 </p>
 <p>{{restaurant.username}}</p>
 <p>{{restaurant.name}}</p>
@@ -7,3 +7,67 @@
 <form>
   <button (click)="backToAccount()">Get Back to my Account</button>
 </form>
+
+
+<form *ngIf="showOrderList">
+  The list my Orders:
+  <div class="flex-container-5">
+
+    <div *ngFor="let o of orders" class="flex-container1-div" >
+      id: {{o.id}}<br>
+      DATE: {{o.date | date:'medium'}} <br>
+      CLIENT: {{o.client.username}} <br>
+      INFORMATION: {{o.orderStatus}} <br>
+      <button (click)="getOrderMeals(o)">Show Meals</button>
+    </div><br>
+
+  </div>
+</form>
+
+<form class="inputForm" *ngIf="reasonOfCancelationInput" #reasonOfCancelationForm>
+  Do you Really want to cancel order: {{order.date| date}} ?
+  <input [(ngModel)]="reasonOfCancelation" name="reasonOfCancelation" type="text" placeholder="reasonOfCancelation">
+  <button (click)="cancellTotally(reasonOfCancelationForm)">CANCELL</button>
+</form>
+<form class="inputForm" *ngIf="responsePositiveInput" #responsePositiveForm>
+  Add comments to positive response of order from: {{order.date| date}}
+  <input [(ngModel)]="responsePositiveString" name="responseString" type="text" placeholder="responseString">
+  <button (click)="makePositiveResponse(responsePositiveForm)">Post RESPONSE</button>
+</form>
+<form class="inputForm" *ngIf="responseNegativeInput" #responseNegativeForm>
+  Add comments to negative response of order from: {{order.date| date}}
+  <input [(ngModel)]="responseNegativeString" name="responseString" type="text" placeholder="responseString">
+  <button (click)="makeNegativeResponse(responseNegativeForm)">Post RESPONSE</button>
+</form>
+
+<p>{{responseOnAction}}</p>
+<form *ngIf="showClientInfo" class="clientInfo">
+  NAME: {{client.username}}<br>
+  EMAIL: {{client.email}}<br>
+  POSITIVE RATING: {{client.clientPositiveResponses}}<br>
+  NEGATIVE RATING: {{client.clientNegativeResponses}}<br>
+  <button (click)="showResponses(restaurant, client)">Show Responses</button>
+</form>
+
+<form *ngIf="showMealsOfOrder">
+  <div class="mealsOfOrder">
+    <h3>Info about current order: </h3>
+    DATE: {{order.date | date:'medium'}} <br>
+    CLIENT: {{order.client.username}} <br>
+    INFORMATION: {{order.orderStatus}} <br>
+    <button (click)="getInfoAboutClient(order)">GET Info About CLIENT</button>
+    <button (click)="deleteOrder(order)">Delete Order</button>
+    <button (click)="cancelOrder(order)">Cancel</button>
+    <button (click)="positiveResponse(order)">Positive Response </button>
+    <button (click)="negativeResponse(order)">Negative Response </button>
+    <div *ngFor="let m of mealsOfOrder" class="separateMeal">
+      <p>MEAL: </p>
+      Menu Section: {{m.menuSection.name}}<br>
+      NAME: {{m.name}}<br>
+      DESCRIPTION: {{m.description}}<br>
+      PRICE: {{m.price}}
+    </div>
+  </div>
+</form>
+
+

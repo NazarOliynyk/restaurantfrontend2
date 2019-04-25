@@ -7,6 +7,7 @@ import {HttpHeaders} from '@angular/common/http';
 import {Avatar} from '../Models/Avatar';
 
 
+
 // @ts-ignore
 @Component({
   selector: 'app-avatar-component',
@@ -31,6 +32,8 @@ export class AvatarComponentComponent implements OnInit {
   showListOfAvatars = false;
   showFormAddAvatar = true;
   responseOnDelete = '';
+
+
 //   htmlTemplate = `
 // <h1>Angular Tutorials on Roufid.com</h1>
 // <strong><a href="javascript:alert('safe html')">Hello world !</a></strong>`;
@@ -62,10 +65,10 @@ export class AvatarComponentComponent implements OnInit {
     this.headersOption =
       new HttpHeaders({'Authorization': localStorage.getItem('_token')});
 
-    this.mainControllerService.getFiles(this.restaurant, this.headersOption).
-    subscribe(images  => {this.images = images; },
-      error1 => {console.log('Failed to load avatar-list');
-      });
+    // this.mainControllerService.getFiles(this.restaurant, this.headersOption).
+    // subscribe(images  => {this.images = images; },
+    //   error1 => {console.log('Failed to load avatar-list');
+    //   });
 
     this.mainControllerService.getAvatars(this.restaurant, this.headersOption).
       subscribe(avatars => this.avatars = avatars);

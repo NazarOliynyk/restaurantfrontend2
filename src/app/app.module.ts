@@ -18,11 +18,12 @@ import { MenusectionComponentComponent } from './menusection-component/menusecti
 import { OrderforclientComponentComponent } from './orderforclient-component/orderforclient-component.component';
 import { OrderforrestaurantComponentComponent } from './orderforrestaurant-component/orderforrestaurant-component.component';
 import { AvatarComponentComponent } from './avatar-component/avatar-component.component';
+import { ResponsesComponent } from './responses/responses.component';
 
 
 const routes: Routes = [
    {path: 'app', component: AppComponent},
- // {path: 'users', component: UsersComponent},
+  {path: 'responses', component: ResponsesComponent},
   {path: 'login', component: LoginationComponent},
   {path: 'register', component: RegistrationComponent},
   {path: 'restaurant', component: RestaurantComponentComponent},
@@ -51,9 +52,7 @@ const routes: Routes = [
     OrderforrestaurantComponentComponent,
     AvatarComponentComponent,
     SafeHtmlPipe,
-    // UsersComponent,
-    // SingleUserComponent,
-    // UpdateComponent
+    ResponsesComponent,
   ],
   imports: [
     BrowserModule,

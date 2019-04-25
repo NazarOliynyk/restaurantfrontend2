@@ -1,0 +1,40 @@
+<p>
+  responses page:
+</p>
+
+<form *ngIf="responsesOfClient">
+  <div class="item">
+    Client info:
+    CLIENT:{{client.username}}<br>
+    POSITIVE RESP.:{{client.clientPositiveResponses}}<br>
+    NEGATIVE RESP.:{{client.clientNegativeResponses}}<br>
+    The previous orders of this client with responses:
+    <div *ngFor="let o of orders" class="orderItem">
+      DATE of ORDER:               {{o.date | date}}<br>
+      RESTAURANT:                  {{o.restaurant.name}}<br>
+      ORDER STATUS:                {{o.orderStatus}}<br>
+      KIND OF RESPONSE:            {{o.responseFromRestaurant}}<br>
+      DESCRIPTION from RESTAURANT: {{o.descriptionFromRestaurant}}<br>
+    </div>
+    <button (click)="backToRestaurantOrders()">GET BACK TO MY ORDERS</button>
+  </div>
+</form>
+
+<form *ngIf="responsesOfRestaurant">
+  <div class="item">
+    Restaurant info:
+    RESTAURANT:{{restaurant.name}}<br>
+    POSITIVE RESP.:{{restaurant.restaurantPositiveResponses}}<br>
+    NEGATIVE RESP.:{{restaurant.restaurantNegativeResponses}}<br>
+    The previous orders of this restaurant with responses:
+    <div *ngFor="let o of orders" class="orderItem">
+      DATE of ORDER:               {{o.date | date}}<br>
+      CLIENT:                      {{o.client.username}}<br>
+      ORDER STATUS:                {{o.orderStatus}}<br>
+      KIND OF RESPONSE:            {{o.responseFromClient}}<br>
+      DESCRIPTION from CLIENT: {{o.descriptionFromClient}}<br>
+    </div>
+    <button (click)="backToClientOrders()">GET BACK TO MY ORDERS</button>
+  </div>
+</form>
+

@@ -15,7 +15,6 @@ export class AppComponent implements OnInit {
   title = 'Restaurant-Client';
   user: User = new User();
   greeting = false;
-  responseOnDelete = '';
   headersOption: HttpHeaders;
   showSignInButton = true;
 
@@ -38,14 +37,17 @@ export class AppComponent implements OnInit {
   }
 
   deleteAccount(user: User) {
-    this.headersOption =
-      new HttpHeaders({'Authorization': localStorage.getItem('_token')});
-    this.mainControllerService.deleteUser(user.id, this.headersOption).
-    subscribe(data => {
-    this.greeting = false;
-    this.responseOnDelete = data.text;
-    this.router.navigate(['register']); },
-      err => {console.log('err: ' + err.toString());
-        this.responseOnDelete = 'Failed to delete!'; } );
+    if (confirm('DO YOU REALLY WANT TO DELETE YOUR ACCOUNT???')) {
+
+      this.headersOption =
+        new HttpHeaders({'Authorization': localStorage.getItem('_token')});
+      this.mainControllerService.deleteUser(user.id, this.headersOption).
+      subscribe(data => {
+          this.greeting = false;
+          alert(data.text);
+          this.router.navigate(['register']); },
+        err => {console.log('err: ' + err.toString());
+          alert('Failed to delete!'); } );
+    }
   }
 }

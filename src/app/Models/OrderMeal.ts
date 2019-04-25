@@ -7,7 +7,7 @@ export class OrderMeal {
 
   constructor(
     public id: number = 0,
-    public date: Date = null,
+    public date: Date = new Date(),
     public reasonOfCancelation: string = '',
     public descriptionFromClient: string = '',
     public descriptionFromRestaurant: string = '',

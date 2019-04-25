@@ -10,7 +10,6 @@ import {Meal} from '../Models/Meal';
 import {OrderMeal} from '../Models/OrderMeal';
 import {ResponseTransfer} from '../Models/ResponseTransfer';
 import {Avatar} from '../Models/Avatar';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +41,10 @@ export class MainControllerService {
       this.url + '/updateClient', client, {headers: headersOption});
   }
 
+  checkPassword(id: number, oldPassword: string, headersOption: HttpHeaders): Observable<ResponseTransfer>  {
+    return this.http.post<ResponseTransfer>(
+      this.url + '/checkPassword/' + id, oldPassword, {headers: headersOption});
+  }
   login(user: User) {
     return this.http.post(this.url + '/login',
       JSON.stringify({username: user.username,
@@ -78,36 +81,36 @@ export class MainControllerService {
       this.url + '/getAvatars/' + restaurant.id, {headers: headersOption});
   }
 
-  getFiles(restaurant: Restaurant, headersOption: HttpHeaders): Observable<File []> {
-    return this.http.get<File[]> (
-      this.url + '/getFiles/' + restaurant.id, {headers: headersOption});
-  }
-
-  getImages(restaurant: Restaurant, headersOption: HttpHeaders): Observable<any[]> {
-    return this.http.get<any[]> (
-      this.url + '/getImages/' + restaurant.id, {headers: headersOption});
-    // pipe(map((response: Response) => {
-    //   return response;
-    // }));
-  }
+  // getFiles(restaurant: Restaurant, headersOption: HttpHeaders): Observable<File []> {
+  //   return this.http.get<File[]> (
+  //     this.url + '/getFiles/' + restaurant.id, {headers: headersOption});
+  // }
+  //
+  // getImages(restaurant: Restaurant, headersOption: HttpHeaders): Observable<any[]> {
+  //   return this.http.get<any[]> (
+  //     this.url + '/getImages/' + restaurant.id, {headers: headersOption});
+  //   pipe(map((response: Response) => {
+  //     return response;
+  //   }));
+  // }
 
   getMenuSections(restaurant: Restaurant, headersOption: HttpHeaders): Observable<MenuSection []> {
     return this.http.get<MenuSection []> (
       this.url + '/getMenuSections/' + restaurant.id, {headers: headersOption});
   }
 
-  getMeals(restaurant: Restaurant, headersOption: HttpHeaders): Observable<Meal[]> {
-    return this.http.post<Meal[]>(
-      this.url + '/getMeals', restaurant, {headers: headersOption});
+  getMeals(id: number, headersOption: HttpHeaders): Observable<Meal[]> {
+    return this.http.get<Meal[]>(
+      this.url + '/getMeals/' + id,  {headers: headersOption});
   }
 
-  getClientOrders(client: Client, headersOption: HttpHeaders): Observable<OrderMeal[]> {
-    return this.http.post<OrderMeal[]>(
-      this.url + '/getClientOrders', client, {headers: headersOption});
+  getClientOrders(id: number, headersOption: HttpHeaders): Observable<OrderMeal[]> {
+    return this.http.get<OrderMeal[]>(
+      this.url + '/getClientOrders/' + id, {headers: headersOption});
   }
 
-  getRestaurantOrders(restaurant: Restaurant, headersOption: HttpHeaders): Observable<OrderMeal[]> {
-    return this.http.post<OrderMeal[]>(
-      this.url + '/getRestaurantOrders', restaurant, {headers: headersOption});
+  getRestaurantOrders(id: number, headersOption: HttpHeaders): Observable<OrderMeal[]> {
+    return this.http.get<OrderMeal[]>(
+      this.url + '/getRestaurantOrders/' + id, {headers: headersOption});
   }
 }

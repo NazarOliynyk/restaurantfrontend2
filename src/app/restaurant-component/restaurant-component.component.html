@@ -1,7 +1,7 @@
 <p>
  Hello!
 </p>
-<form *ngIf="showInitialInfo">
+<form *ngIf="showInitialInfo" class="initialData">
 <p>Your initial data:</p>
 <p>Login: {{restaurant.username}}</p>
 <p>Restaurant name: {{restaurant.name}}</p>
@@ -44,11 +44,12 @@
 <button (click)="resetInitialData()">Show initial Data</button>
 </form>
 
-<form *ngIf="showGoToOptions">
-  <button (click)="goToMenuSections()">Go to My Menu Sections</button>
-  <button (click)="goToAvatars()">Go to My Avatars</button>
-  <button (click)="goToMeals()">Go to My Meals</button>
-  <button (click)="goToOrders()">Go to My Orders</button>
+<form *ngIf="showGoToOptions" class="options">
+  OPTIONS of Your Account:<br>
+  <button (click)="goToMenuSections()">Go to My Menu Sections</button><br>
+  <button (click)="goToAvatars()">Go to My Avatars</button><br>
+  <button (click)="goToMeals()">Go to My Meals</button><br>
+  <button (click)="goToOrders()">Go to My Orders</button><br>
 
 </form>
 

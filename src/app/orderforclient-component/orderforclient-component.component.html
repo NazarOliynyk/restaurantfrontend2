@@ -1,5 +1,5 @@
 <p>
-  orderforclient-component works!
+  ORDERS for CLIENT
 </p>
 <p>{{client.username}}</p>
 <p>{{client.email}}</p>
@@ -7,3 +7,103 @@
 <form>
   <button (click)="backToAccount()">Get Back to my Account</button>
 </form>
+<form>
+  <button (click)="watchAllOrders()">Watch all my Orders</button>
+</form>
+
+<form *ngIf="showOrderList">
+  The list my Orders:
+  <div class="flex-container-5">
+
+    <div *ngFor="let o of orders" class="flex-container1-div" >
+      id: {{o.id}}<br>
+      DATE: {{o.date | date:'medium'}} <br>
+      RESTAURANT: {{o.restaurant.name}} <br>
+      STATUS: {{o.orderStatus}} <br>
+      <button (click)="getOrderMeals(o)">Show Meals</button>
+      <!--*ngIf="o.orderStatus == JUST_ORDERED"-->
+      <button (click)="deleteOrder(o)">Delete Order</button>
+      <button (click)="cancelOrder(o)">Cancel</button>
+      <button (click)="orderServed(o)">Order Served </button>
+      <button (click)="positiveResponse(o)">Positive Response </button>
+      <button (click)="negativeResponse(o)">Negative Response </button>
+    </div><br>
+    <p>{{responseOnAction}}</p>
+  </div>
+</form>
+
+<form class="inputForm" *ngIf="reasonOfCancelationInput" #reasonOfCancelationForm>
+  Do you Really want to cancell order: {{order.date| date}} ?
+  <input [(ngModel)]="reasonOfCancelation" name="reasonOfCancelation" type="text" placeholder="reasonOfCancelation">
+  <button (click)="cancellTotally(reasonOfCancelationForm)">CANCELL</button>
+</form>
+<form class="inputForm" *ngIf="responsePositiveInput" #responsePositiveForm>
+  Add comments to positive response of order from: {{order.date| date}}
+  <input [(ngModel)]="responsePositiveString" name="responseString" type="text" placeholder="responseString">
+  <button (click)="makePositiveResponse(responsePositiveForm)">Post RESPONSE</button>
+</form>
+<form class="inputForm" *ngIf="responseNegativeInput" #responseNegativeForm>
+  Add comments to negative response of order from: {{order.date| date}}
+  <input [(ngModel)]="responseNegativeString" name="responseString" type="text" placeholder="responseString">
+  <button (click)="makeNegativeResponse(responseNegativeForm)">Post RESPONSE</button>
+</form>
+
+<form *ngIf="showMealsOfOrder">
+  <div class="mealsOfOrder">
+    <div *ngFor="let m of mealsOfOrder" class="mealsOfOrder">
+      Menu Section: {{m.menuSection.name}}<br>
+      NAME: {{m.name}}<br>
+      DESCRIPTION: {{m.description}}<br>
+      PRICE: {{m.price}}
+    </div>
+  </div>
+</form>
+
+<form *ngIf="showRestaurantList">
+  <h2>The list of all Restaurants:</h2>
+  <div class="flex-container-5">
+
+    <div *ngFor="let r of restaurants" class="flex-container1-div" >
+        id: {{r.id}}
+       NAME: {{r.name}} <br>
+       ADDRESS: {{r.address}} <br>
+       INFORMATION: {{r.additionalInfo}} <br>
+       Phone Number: {{r.phoneNumber}} <br>
+       POSITIVE RATING: {{r.restaurantPositiveResponses}} <br>
+       NEGATIVE RATING: {{r.restaurantNegativeResponses}} <br>
+      <button (click)="goToThisRestaurant(r)">Go to this restaurant</button>
+      <button (click)="showResponses(r, client)">Show Responses</button>
+    </div>
+  </div>
+</form>
+
+
+
+<form *ngIf="showMeals">
+  The list of meals for this restaurant:
+  <div class="flex-container-5">
+
+    <div *ngFor="let m of meals" class="flex-container1-div">
+      Section Of Menu: {{m.menuSection.name}}<br>
+      NAME: {{m.name}}<br>
+      DESCRIPTION: {{m.description}}<br>
+      QUANTITY: {{m.quantity}}<br>
+      PRICE: {{m.price}}<br>
+      <button (click)="addToMenu(m)">ADD TO MY MENU</button>
+    </div>
+  </div>
+  <h3>{{responseCreateOrder}}</h3>
+</form>
+
+<form  *ngIf="showPreliminaryMenu"  >
+  The preliminary look of your order:
+  <div class="preliminary-look">
+    <div *ngFor="let m of mealsToBeAdded" class="mealsOfOrder">
+      Section: {{m.menuSection.name}}, Name:{{m.name}}, Price: {{m.price}}
+      <button (click)="removeFromPreliminary(m)">REMOVE From Menu</button>
+    </div>
+    <button (click)="createOrder()">CREATE ORDER</button>
+  </div>
+</form>
+
+

@@ -30,14 +30,14 @@ export class RestaurantControllerService {
       this.url + '/deleteMenuSection/' + id, {headers: headersOption});
   }
 
-  saveMeal(meal: Meal, headersOption: HttpHeaders): Observable<ResponseTransfer> {
+  saveMeal(id: number, meal: Meal, headersOption: HttpHeaders): Observable<ResponseTransfer> {
     return this.http.post<ResponseTransfer>(
-      this.url + '/saveMeal', meal, {headers: headersOption});
+      this.url + '/saveMeal/' + id , meal, {headers: headersOption});
   }
 
   deleteMeal(id: number, headersOption: HttpHeaders): Observable<ResponseTransfer> {
     return this.http.delete<ResponseTransfer>(
-      this.url + '/deleteMeal' + id, {headers: headersOption});
+      this.url + '/deleteMeal/' + id, {headers: headersOption});
   }
 
   saveAvatar(id: number, image: FormData, headersOption: HttpHeaders): Observable<ResponseTransfer> {
@@ -50,6 +50,11 @@ export class RestaurantControllerService {
       this.url + '/deleteAvatar/' + id, {headers: headersOption});
   }
 
+  findClientByOrderId(id: number, headersOption: HttpHeaders): Observable<Client> {
+    return this.http.get<Client>(
+      this.url + '/findClientByOrderId/' + id, {headers: headersOption});
+  }
+
   acceptOrderToKitchen(order: OrderMeal, headersOption: HttpHeaders): Observable<ResponseTransfer> {
     return this.http.post<ResponseTransfer>(
       this.url + '/acceptOrderToKitchen', order, {headers: headersOption});
@@ -58,12 +63,12 @@ export class RestaurantControllerService {
   cancelOrderByRestaurant(
     id: number, reasonOfCancelation: string, headersOption: HttpHeaders): Observable<ResponseTransfer> {
     return this.http.post<ResponseTransfer>
-    (this.url + '/reasonOfCancelation', reasonOfCancelation, {headers: headersOption});
+    (this.url + '/cancelOrderByRestaurant/' + id, reasonOfCancelation, {headers: headersOption});
   }
 
   deleteOrderByRestaurant(id: number, headersOption: HttpHeaders): Observable<ResponseTransfer> {
     return this.http.delete<ResponseTransfer>(
-      this.url + '/deleteOrderByRestaurant' + id, {headers: headersOption});
+      this.url + '/deleteOrderByRestaurant/' + id, {headers: headersOption});
   }
 
   negativeFromRestaurant(
@@ -75,6 +80,6 @@ export class RestaurantControllerService {
   positiveFromRestaurant(
     id: number, descriptionFromRestaurant: string, headersOption: HttpHeaders): Observable<ResponseTransfer> {
     return this.http.post<ResponseTransfer>
-    (this.url + '/positiveFromRestaurant' + id, descriptionFromRestaurant, {headers: headersOption});
+    (this.url + '/positiveFromRestaurant/' + id, descriptionFromRestaurant, {headers: headersOption});
   }
 }

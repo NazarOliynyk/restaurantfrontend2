@@ -1,0 +1,15 @@
+button{
+  margin: 5px;
+}
+.initialData{
+  width: 400px;
+  height: auto;
+  background: burlywood;
+  border: 2px solid black;
+}
+.options{
+  width: auto;
+  height: auto;
+  background: antiquewhite;
+  border: 1px solid black;
+}

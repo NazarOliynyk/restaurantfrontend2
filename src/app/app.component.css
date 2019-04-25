@@ -1,3 +1,9 @@
 button{
   margin: 5px;
 }
+.mainFrame{
+  width: auto;
+  height: auto;
+  background: tomato;
+  border: 3px solid black;
+}

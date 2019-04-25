@@ -20,12 +20,17 @@ export class ClientComponentComponent implements OnInit {
   showReset = false;
   showGoToOptions = true;
   headersOption: HttpHeaders;
+  checkPassword = false;
+  oldPassword: string;
+  newPassword: string;
 
   constructor(private activatedRoute: ActivatedRoute,
               private mainControllerService: MainControllerService,
               private router: Router) { }
 
   ngOnInit() {
+    this.headersOption =
+      new HttpHeaders({'Authorization': localStorage.getItem('_token')});
     this.activatedRoute.queryParams.subscribe((data: Client) => {
       this.client = data;
       console.log(this.client.username);
@@ -39,8 +44,6 @@ export class ClientComponentComponent implements OnInit {
   }
 
   updateClient(formToBeUpdated: HTMLFormElement) {
-    this.headersOption =
-      new HttpHeaders({'Authorization': localStorage.getItem('_token')});
     this.clientToUpdate.id = this.client.id;
     this.clientToUpdate.username = this.client.username;
     this.clientToUpdate.password = this.client.password;
@@ -71,4 +74,19 @@ export class ClientComponentComponent implements OnInit {
 
   goToOrders() {
     this.router.navigate(['clientOrder'], {queryParams: this.client});  }
+
+  changePassword(client: Client) {
+    console.log(client.username);
+    this.client = client;
+    this.checkPassword = true;
+    // window.open('http://localhost:8080/changePassword', '_blank');
+  }
+
+  sendPassword(changePasswordForm: HTMLFormElement) {
+    console.log(this.oldPassword);
+    console.log(this.newPassword);
+    this.mainControllerService.checkPassword(
+      this.client.id, this.oldPassword, this.headersOption).
+    subscribe(res => {console.log(res.text); });
+  }
 }

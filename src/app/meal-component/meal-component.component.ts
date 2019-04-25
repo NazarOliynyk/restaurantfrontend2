@@ -23,7 +23,6 @@ export class MealComponentComponent implements OnInit {
   meals: Meal [] = [];
 
   responseOnSaveMeal = '';
-  showListOfMenuSections = false;
   showListOfMeals = false;
   showUpdateForm = false;
   mealToUpdate: Meal = new Meal();
@@ -40,7 +39,6 @@ export class MealComponentComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((data: Restaurant) => {
       this.restaurant = data;
-      console.log('oninit works');
       this.headersOption =
         new HttpHeaders({'Authorization': localStorage.getItem('_token')});
       this.mainControllerService.getMenuSections(this.restaurant, this.headersOption).
@@ -59,10 +57,71 @@ export class MealComponentComponent implements OnInit {
   saveMeal(mealForm: HTMLFormElement) {
     console.log(this.meal);
     console.log(this.menuSection);
+    this.meal.menuSection = this.menuSection;
+    this.headersOption =
+      new HttpHeaders({'Authorization': localStorage.getItem('_token')});
+    this.restaurantControllerService.saveMeal(
+      this.restaurant.id, this.meal, this.headersOption).
+    subscribe(data => {this.responseOnSaveMeal = data.text; },
+      error1 => {this.responseOnSaveMeal = 'Failed to save'; });
 
   }
 
   selected(name) {
     console.log(name);
+  }
+
+  getListOfMeals(restaurant: Restaurant) {
+    this.restaurant = restaurant;
+    this.headersOption =
+      new HttpHeaders({'Authorization': localStorage.getItem('_token')});
+      this.mainControllerService.getMeals(this.restaurant.id, this.headersOption).
+      subscribe(data => {
+        this.meals = data;
+        this.showListOfMeals = true;
+        this.showFormAddMeal = false;
+        this.responseOnSaveMeal = '';
+        this.responseOnUpdate = '';
+        this.responseOnDelete = '';
+      });
+  }
+
+  update(meal:  Meal) {
+    this.showListOfMeals = false;
+    this.showUpdateForm = true;
+    this.responseOnDelete = '';
+    this.responseOnUpdate = '';
+    this.responseOnSaveMeal = '';
+    this.meal = meal;
+    console.log('meal to update: ' + meal);
+  }
+
+  delete(meal:  Meal) {
+    this.meal = meal;
+    console.log('meal to delete: ' + meal);
+    this.restaurantControllerService.deleteMeal(this.meal.id, this.headersOption).
+      subscribe(data => {this.responseOnDelete = data.text;
+      this.showListOfMeals = false; },
+      error1 => {this.responseOnDelete = 'Failed to delete'; });
+  }
+
+  updateMeal(formToBeUpdated: HTMLFormElement) {
+    this.mealToUpdate.id = this.meal.id;
+    this.mealToUpdate.menuSection = this.menuSection;
+    if (this.mealToUpdate.name === '') {
+      this.mealToUpdate.name = this.meal.name; }
+    if (this.mealToUpdate.description === '') {
+      this.mealToUpdate.description = this.meal.description; }
+    if (this.mealToUpdate.quantity === '') {
+      this.mealToUpdate.quantity = this.meal.quantity; }
+    if (this.mealToUpdate.price === 0) {
+      this.mealToUpdate.price = this.meal.price; }
+    this.headersOption =
+      new HttpHeaders({'Authorization': localStorage.getItem('_token')});
+    this.restaurantControllerService.saveMeal(
+      this.restaurant.id, this.mealToUpdate, this.headersOption).
+    subscribe(data => {this.responseOnUpdate = data.text;
+    this.showUpdateForm = false; },
+      error1 => {this.responseOnUpdate = 'Failed to update'; });
   }
 }
