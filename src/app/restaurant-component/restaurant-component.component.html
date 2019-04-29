@@ -43,7 +43,18 @@
 <form *ngIf="showReset">
 <button (click)="resetInitialData()">Show initial Data</button>
 </form>
+<button (click)="changePassword(restaurant)">CHANGE PASSWORD</button>
 
+<form *ngIf="checkPassword" #changePasswordForm>
+  <label>Old Password:<br>
+    <input [(ngModel)]="oldPassword" type="password"
+           name="password" placeholder="password" size="10"></label><br>
+  <label>New Password:<br>
+    <input [(ngModel)]="newPassword" type="password"
+           name="password" placeholder="password" size="10"></label><br>
+  <button (click)="sendPassword(changePasswordForm)">SET NEW PASSWORD</button><br>
+  {{resultCheckPassword}}
+</form>
 <form *ngIf="showGoToOptions" class="options">
   OPTIONS of Your Account:<br>
   <button (click)="goToMenuSections()">Go to My Menu Sections</button><br>

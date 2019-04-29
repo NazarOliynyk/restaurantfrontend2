@@ -45,6 +45,21 @@ export class MainControllerService {
     return this.http.post<ResponseTransfer>(
       this.url + '/checkPassword/' + id, oldPassword, {headers: headersOption});
   }
+
+  changePasswordClient(client: Client, headersOption: HttpHeaders): Observable<ResponseTransfer>  {
+    return this.http.post<ResponseTransfer>(
+      this.url + '/changePasswordClient', client, {headers: headersOption});
+  }
+
+  changePasswordRestaurant(restaurant: Restaurant, headersOption: HttpHeaders): Observable<ResponseTransfer>  {
+    return this.http.post<ResponseTransfer>(
+      this.url + '/changePasswordRestaurant', restaurant, {headers: headersOption});
+  }
+
+  getLogins(): Observable<User []> {
+    return this.http.get<User []>(this.url + '/getLogins');
+  }
+
   login(user: User) {
     return this.http.post(this.url + '/login',
       JSON.stringify({username: user.username,

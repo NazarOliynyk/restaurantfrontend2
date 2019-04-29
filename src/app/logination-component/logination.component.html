@@ -4,7 +4,10 @@
 
 <h3>{{responseLogination}}</h3>
 
-<form *ngIf="hideLoginForm" #formLogin>
+<button (click)="useLogin()">Log by login</button><br>
+<button (click)="useEmail()">Log by email</button>
+
+<form *ngIf="hideLoginForm" #formLoginL>
 
   <label>Login:<br>
     <input  [(ngModel)]="user.username" type="text"
@@ -14,7 +17,20 @@
     <input [(ngModel)]="user.password" type="password"
            name="password" placeholder="password" size="10"></label><br>
 
-  <button  (click)="login(formLogin)" type="button">Log In</button>
+  <button  (click)="loginL(formLoginL)" type="button">Log In</button>
+</form>
+
+<form *ngIf="hideEmailForm" #formLoginE>
+
+  <label>Email:<br>
+    <input  [(ngModel)]="user.email" type="text"
+            name="username" placeholder="username" size="10"></label><br>
+
+  <label>Password:<br>
+    <input [(ngModel)]="user.password" type="password"
+           name="password" placeholder="password" size="10"></label><br>
+
+  <button  (click)="loginE(formLoginE)" type="button">Log In</button>
 </form>
 
 

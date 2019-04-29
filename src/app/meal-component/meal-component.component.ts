@@ -58,13 +58,11 @@ export class MealComponentComponent implements OnInit {
     console.log(this.meal);
     console.log(this.menuSection);
     this.meal.menuSection = this.menuSection;
-    this.headersOption =
-      new HttpHeaders({'Authorization': localStorage.getItem('_token')});
     this.restaurantControllerService.saveMeal(
       this.restaurant.id, this.meal, this.headersOption).
     subscribe(data => {this.responseOnSaveMeal = data.text; },
       error1 => {this.responseOnSaveMeal = 'Failed to save'; });
-
+    window.alert();
   }
 
   selected(name) {
@@ -73,13 +71,10 @@ export class MealComponentComponent implements OnInit {
 
   getListOfMeals(restaurant: Restaurant) {
     this.restaurant = restaurant;
-    this.headersOption =
-      new HttpHeaders({'Authorization': localStorage.getItem('_token')});
       this.mainControllerService.getMeals(this.restaurant.id, this.headersOption).
       subscribe(data => {
         this.meals = data;
         this.showListOfMeals = true;
-        this.showFormAddMeal = false;
         this.responseOnSaveMeal = '';
         this.responseOnUpdate = '';
         this.responseOnDelete = '';
@@ -116,8 +111,6 @@ export class MealComponentComponent implements OnInit {
       this.mealToUpdate.quantity = this.meal.quantity; }
     if (this.mealToUpdate.price === 0) {
       this.mealToUpdate.price = this.meal.price; }
-    this.headersOption =
-      new HttpHeaders({'Authorization': localStorage.getItem('_token')});
     this.restaurantControllerService.saveMeal(
       this.restaurant.id, this.mealToUpdate, this.headersOption).
     subscribe(data => {this.responseOnUpdate = data.text;

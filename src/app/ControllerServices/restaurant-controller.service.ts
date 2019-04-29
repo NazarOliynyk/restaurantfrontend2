@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {User} from '../Models/User';
-import {Restaurant} from '../Models/Restaurant';
 import {Client} from '../Models/Client';
 import {MenuSection} from '../Models/MenuSection';
 import {Meal} from '../Models/Meal';
@@ -74,7 +72,7 @@ export class RestaurantControllerService {
   negativeFromRestaurant(
     id: number, descriptionFromRestaurant: string, headersOption: HttpHeaders): Observable<ResponseTransfer> {
     return this.http.post<ResponseTransfer>
-    (this.url + '/negativeFromRestaurant' + id, descriptionFromRestaurant, {headers: headersOption});
+    (this.url + '/negativeFromRestaurant/' + id, descriptionFromRestaurant, {headers: headersOption});
   }
 
   positiveFromRestaurant(

@@ -28,7 +28,7 @@
     <input  [(ngModel)]="meal.quantity" type="text"
           name="quantity" placeholder="quantity" size="30"></label><br>
     <label>PRICE:
-    <input  [(ngModel)]="meal.price" type="text"
+    <input  [ngModel]="meal.price | number" (ngModelChange)="meal.price=$event.toLocaleString()" type="text"
             name="price" placeholder="price" size="30"></label><br>
 
   <button (click)="saveMeal(mealForm)">Save Meal</button><br>

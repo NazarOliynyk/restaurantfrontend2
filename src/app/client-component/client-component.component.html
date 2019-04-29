@@ -1,7 +1,7 @@
 <p>
   Hello!
 </p>
-<form *ngIf="showInitialInfo">
+<form *ngIf="showInitialInfo" class="initialData">
   <p>Your initial data:</p>
   <p>Login: {{client.username}}</p>
   <p>Email: {{client.email}}</p>
@@ -33,10 +33,11 @@
   <label>New Password:<br>
   <input [(ngModel)]="newPassword" type="password"
          name="password" placeholder="password" size="10"></label><br>
-  <button (click)="sendPassword(changePasswordForm)">CHANGE PASSWORD</button>
+  <button (click)="sendPassword(changePasswordForm)">SET NEW PASSWORD</button><br>
+  {{resultCheckPassword}}
 </form>
 
-<form *ngIf="showGoToOptions">
+<form *ngIf="showGoToOptions" class="options">
 
   <button (click)="goToOrders()">Go to My Orders</button>
 

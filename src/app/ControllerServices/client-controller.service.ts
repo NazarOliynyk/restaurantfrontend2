@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {OrderMeal} from '../Models/OrderMeal';
 import {ResponseTransfer} from '../Models/ResponseTransfer';
 import {Meal} from '../Models/Meal';
 

@@ -23,6 +23,7 @@ export class ClientComponentComponent implements OnInit {
   checkPassword = false;
   oldPassword: string;
   newPassword: string;
+  resultCheckPassword: string;
 
   constructor(private activatedRoute: ActivatedRoute,
               private mainControllerService: MainControllerService,
@@ -41,9 +42,11 @@ export class ClientComponentComponent implements OnInit {
     this.showUpdateButton = false;
     this.showInitialInfo = false;
     this.showUpdateForm = true;
+    this.resultCheckPassword = '';
   }
 
   updateClient(formToBeUpdated: HTMLFormElement) {
+    this.resultCheckPassword = '';
     this.clientToUpdate.id = this.client.id;
     this.clientToUpdate.username = this.client.username;
     this.clientToUpdate.password = this.client.password;
@@ -64,6 +67,7 @@ export class ClientComponentComponent implements OnInit {
   }
 
   resetInitialData() {
+    this.resultCheckPassword = '';
     this.showInitialInfo = true;
     this.mainControllerService.findClient(
       this.clientToUpdate.id, this.headersOption).
@@ -73,9 +77,11 @@ export class ClientComponentComponent implements OnInit {
   }
 
   goToOrders() {
+    this.resultCheckPassword = '';
     this.router.navigate(['clientOrder'], {queryParams: this.client});  }
 
   changePassword(client: Client) {
+    this.resultCheckPassword = '';
     console.log(client.username);
     this.client = client;
     this.checkPassword = true;
@@ -87,6 +93,22 @@ export class ClientComponentComponent implements OnInit {
     console.log(this.newPassword);
     this.mainControllerService.checkPassword(
       this.client.id, this.oldPassword, this.headersOption).
-    subscribe(res => {console.log(res.text); });
+    subscribe(res => { this.resultCheckPassword = res.text;
+    if (this.resultCheckPassword === 'PASSWORD MATCHES') {
+      this.clientToUpdate.id = this.client.id;
+      this.clientToUpdate.username = this.client.username;
+      this.clientToUpdate.email = this.client.email;
+      this.clientToUpdate.password = this.newPassword;
+      this.mainControllerService.changePasswordClient(this.clientToUpdate, this.headersOption).
+      subscribe(u => {this.responseOnUpdate = u.text; },
+        err => {console.log('err: ' + err.toString());
+          this.responseOnUpdate = 'Failed to update!'; } );
+      this.showUpdateForm = false;
+      this.checkPassword = false;
+      this.showReset = true;
+    } else {
+      this.resultCheckPassword = 'FAILED to update - PASSWORD DOES NOT MATCH';
+    }
+    });
   }
 }
