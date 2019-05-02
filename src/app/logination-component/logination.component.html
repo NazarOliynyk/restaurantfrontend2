@@ -5,8 +5,21 @@
 <h3>{{responseLogination}}</h3>
 
 <button (click)="useLogin()">Log by login</button><br>
-<button (click)="useEmail()">Log by email</button>
+<button (click)="useEmail()">Log by email</button><br>
+<button (click)="forgotPassword()">Forgot Password?</button><br>
 
+<form *ngIf="forgotPasswordForm" #emailRestorePassForm>
+
+  <h3>New password will be sent to your email. Change it ASAP!
+  Otherwise it will be changed again automatically in 2 minutes.</h3>
+  <label>Set your email:<br>
+    <input  [(ngModel)]="emailToRestorePass" type="text"
+            name="emailToRestorePass" placeholder="email" size="20"></label><br>
+  <button (click)="sendRequestNewPass(emailToRestorePass)" >Send Request</button>
+
+</form>
+
+<p>{{responseChangePass}}</p>
 <form *ngIf="hideLoginForm" #formLoginL>
 
   <label>Login:<br>
@@ -24,7 +37,7 @@
 
   <label>Email:<br>
     <input  [(ngModel)]="user.email" type="text"
-            name="username" placeholder="username" size="10"></label><br>
+            name="email" placeholder="email" size="10"></label><br>
 
   <label>Password:<br>
     <input [(ngModel)]="user.password" type="password"

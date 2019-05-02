@@ -55,7 +55,7 @@ export class RestaurantControllerService {
 
   acceptOrderToKitchen(order: OrderMeal, headersOption: HttpHeaders): Observable<ResponseTransfer> {
     return this.http.post<ResponseTransfer>(
-      this.url + '/acceptOrderToKitchen', order, {headers: headersOption});
+      this.url + '/acceptOrderToKitchen/' + order.id, order.id , {headers: headersOption});
   }
 
   cancelOrderByRestaurant(

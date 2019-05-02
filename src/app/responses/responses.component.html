@@ -5,9 +5,9 @@
 <form *ngIf="responsesOfClient">
   <div class="item">
     Client info:
-    CLIENT:{{client.username}}<br>
-    POSITIVE RESP.:{{client.clientPositiveResponses}}<br>
-    NEGATIVE RESP.:{{client.clientNegativeResponses}}<br>
+    CLIENT: {{client.username}}<br>
+    POSITIVE RESP.: {{client.clientPositiveResponses}}<br>
+    NEGATIVE RESP.: {{client.clientNegativeResponses}}<br>
     The previous orders of this client with responses:
     <div *ngFor="let o of orders" class="orderItem">
       DATE of ORDER:               {{o.date | date}}<br>

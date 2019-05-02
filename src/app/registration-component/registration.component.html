@@ -10,7 +10,7 @@
 
     <label>Login:<br>
     <input  [(ngModel)]="restaurant.username" type="text" required minlength="4"
-            name="username" placeholder="username" size="10"></label><br>
+            name="username" placeholder="username" size="10" ></label><br>
 
     <label>Password:<br>
     <input  [(ngModel)]="restaurant.password" type="password" required minlength="4"
@@ -20,7 +20,7 @@
     <input [(ngModel)]="restaurant.name" type="text"
            name="name" placeholder="name" size="40"></label><br>
 
-    <div *ngIf="password.errors.minlength">WWWWW</div>
+
     <label>Address of the Restaurant:<br>
     <input [(ngModel)]="restaurant.address" type="text"
            name="address" placeholder="address" size="80"></label><br>
@@ -41,21 +41,37 @@
   </form>
 
 
-  <form *ngIf="chooseFormClient" #formRegisterC>
+  <form *ngIf="chooseFormClient" #formRegisterC="ngForm">
 
     <label>Login:<br>
       <input  [(ngModel)]="client.username" type="text"
+              [ngStyle]="{border: usernameRef.invalid && usernameRef.dirty?
+              '3px solid red': '3px solid green'}"
+              ngModel
+              #usernameRef = 'ngModel'
+              required minlength="4"
               name="username" placeholder="username" size="10"></label><br>
 
     <label>Password:<br>
       <input [(ngModel)]="client.password" type="password"
+             [ngStyle]="{border: passwordRef.invalid && passwordRef.dirty?
+              '3px solid red': '3px solid green'}"
+             ngModel
+             #passwordRef = 'ngModel'
+             required minlength="4"
              name="password" placeholder="password" size="10"></label><br>
 
     <label>Email:<br>
       <input [(ngModel)]="client.email" type="email"
+             [ngStyle]="{border: emailRef.invalid && emailRef.dirty?
+              '3px solid red': '3px solid green'}"
+             ngModel
+             #emailRef = 'ngModel'
+             required email
              name="email" placeholder="email" size="40"></label><br>
 
-    <button  (click)="registerClient(formRegisterC)" type="button">Sign In</button>
+    <button [disabled]="formRegisterC.invalid"
+      (click)="registerClient(formRegisterC)" type="button">Sign In</button>
   </form>
 
 

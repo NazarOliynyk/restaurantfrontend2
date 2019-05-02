@@ -70,6 +70,13 @@ export class OrderforrestaurantComponentComponent implements OnInit {
       subscribe(client => {this.client = client; });
   }
 
+  acceptToKitchen(order: OrderMeal) {
+    console.log(order.id);
+    this.restaurantControllerService.acceptOrderToKitchen(order, this.headersOption).
+      subscribe(res => {this.responseOnAction = res.text; },
+      error1 => {this.responseOnAction = 'Failed to accept order to kitchen'; });
+  }
+
   deleteOrder(order: OrderMeal) {
     this.restaurantControllerService.deleteOrderByRestaurant(
       order.id, this.headersOption).
@@ -119,5 +126,4 @@ export class OrderforrestaurantComponentComponent implements OnInit {
     this.router.navigate(['responses'], {
       queryParams: {classType: 'restaurant', r: this.restaurant.id, c: this.client.id}});
   }
-
 }

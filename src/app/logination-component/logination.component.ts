@@ -5,6 +5,7 @@ import {Restaurant} from '../Models/Restaurant';
 import {MainControllerService} from '../ControllerServices/main-controller.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Client} from '../Models/Client';
+import {iterateListLike} from '@angular/core/src/change_detection/change_detection_util';
 
 @Component({
   selector: 'app-logination',
@@ -17,8 +18,11 @@ export class LoginationComponent implements OnInit {
   restaurant: Restaurant = new Restaurant();
   client: Client = new Client();
   responseLogination = '';
+  emailToRestorePass = '';
   hideLoginForm = false;
   hideEmailForm = false;
+  forgotPasswordForm = false;
+  responseChangePass = '';
 
   constructor(
     private mainControllerService: MainControllerService,
@@ -116,5 +120,26 @@ export class LoginationComponent implements OnInit {
          this.responseLogination = 'Access denied!'; }
      );
    });
+  }
+
+  forgotPassword() {
+    this.forgotPasswordForm = true;
+  }
+
+  sendRequestNewPass(emailToRestorePass: string) {
+    this.forgotPasswordForm = false;
+    console.log(this.emailToRestorePass);
+    this.mainControllerService.getLogins().
+    subscribe(loginsList => {
+      for (const u of loginsList) {
+        if (u.email === this.emailToRestorePass) {
+          this.user.id = u.id;
+          this.mainControllerService.forgotPassword(this.user).
+          subscribe(res => {
+            console.log(res.text);
+          this.responseChangePass = res.text; });
+        } else { this.responseChangePass = 'Looking for your account...'; }
+      }
+      });
   }
 }

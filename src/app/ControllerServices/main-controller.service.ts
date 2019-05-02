@@ -60,6 +60,10 @@ export class MainControllerService {
     return this.http.get<User []>(this.url + '/getLogins');
   }
 
+  forgotPassword(user: User): Observable<ResponseTransfer> {
+    return this.http.post<ResponseTransfer>(this.url + '/forgotPassword/' + user.id, user);
+  }
+
   login(user: User) {
     return this.http.post(this.url + '/login',
       JSON.stringify({username: user.username,
