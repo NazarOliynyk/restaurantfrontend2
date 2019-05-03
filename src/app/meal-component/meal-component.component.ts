@@ -62,7 +62,6 @@ export class MealComponentComponent implements OnInit {
       this.restaurant.id, this.meal, this.headersOption).
     subscribe(data => {this.responseOnSaveMeal = data.text; },
       error1 => {this.responseOnSaveMeal = 'Failed to save'; });
-    window.alert();
   }
 
   selected(name) {

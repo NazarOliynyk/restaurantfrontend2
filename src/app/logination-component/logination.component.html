@@ -8,42 +8,71 @@
 <button (click)="useEmail()">Log by email</button><br>
 <button (click)="forgotPassword()">Forgot Password?</button><br>
 
-<form *ngIf="forgotPasswordForm" #emailRestorePassForm>
+<form *ngIf="forgotPasswordForm" #emailRestorePassForm="ngForm">
 
   <h3>New password will be sent to your email. Change it ASAP!
   Otherwise it will be changed again automatically in 2 minutes.</h3>
+
   <label>Set your email:<br>
     <input  [(ngModel)]="emailToRestorePass" type="text"
+            [ngStyle]="{border: emailRef.invalid && emailRef.dirty?
+              '3px solid red': '3px solid green'}"
+            ngModel
+            #emailRef = 'ngModel'
+            required email
             name="emailToRestorePass" placeholder="email" size="20"></label><br>
-  <button (click)="sendRequestNewPass(emailToRestorePass)" >Send Request</button>
-
+  <button [disabled]="emailRestorePassForm.invalid"
+    (click)="sendRequestNewPass(emailToRestorePass)" >Send Request</button>
 </form>
 
 <p>{{responseChangePass}}</p>
-<form *ngIf="hideLoginForm" #formLoginL>
+<form *ngIf="hideLoginForm" #formLoginL="ngForm">
 
   <label>Login:<br>
     <input  [(ngModel)]="user.username" type="text"
+            [ngStyle]="{border: usernameRef.invalid && usernameRef.dirty?
+              '3px solid red': '3px solid green'}"
+            ngModel
+            #usernameRef = 'ngModel'
+            required minlength="4"
             name="username" placeholder="username" size="10"></label><br>
 
   <label>Password:<br>
     <input [(ngModel)]="user.password" type="password"
+           [ngStyle]="{border: passwordRef.invalid && passwordRef.dirty?
+              '3px solid red': '3px solid green'}"
+           ngModel
+           #passwordRef = 'ngModel'
+           required minlength="4"
            name="password" placeholder="password" size="10"></label><br>
 
-  <button  (click)="loginL(formLoginL)" type="button">Log In</button>
+
+  <button [disabled]="formLoginL.invalid"
+    (click)="loginL(formLoginL)" type="button">Log In</button>
 </form>
 
-<form *ngIf="hideEmailForm" #formLoginE>
+<form *ngIf="hideEmailForm" #formLoginE="ngForm">
 
   <label>Email:<br>
-    <input  [(ngModel)]="user.email" type="text"
-            name="email" placeholder="email" size="10"></label><br>
+    <input [(ngModel)]="user.email" type="email"
+           [ngStyle]="{border: emailRef.invalid && emailRef.dirty?
+              '3px solid red': '3px solid green'}"
+           ngModel
+           #emailRef = 'ngModel'
+           required email
+           name="email" placeholder="email" size="40"></label><br>
 
   <label>Password:<br>
     <input [(ngModel)]="user.password" type="password"
+           [ngStyle]="{border: passwordRef.invalid && passwordRef.dirty?
+              '3px solid red': '3px solid green'}"
+           ngModel
+           #passwordRef = 'ngModel'
+           required minlength="4"
            name="password" placeholder="password" size="10"></label><br>
 
-  <button  (click)="loginE(formLoginE)" type="button">Log In</button>
+  <button [disabled]="formLoginE.invalid"
+    (click)="loginE(formLoginE)" type="button">Log In</button>
 </form>
 
 

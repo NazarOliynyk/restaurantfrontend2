@@ -49,6 +49,8 @@ export class LoginationComponent implements OnInit {
 
   loginL(formLoginL: HTMLFormElement) {
     localStorage.clear();
+    console.log(this.user.username);
+    console.log(this.user.password);
     this.mainControllerService.login(this.user).
     subscribe(
       value => {

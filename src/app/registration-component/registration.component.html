@@ -6,38 +6,68 @@
 
   <h3>{{responseRegistration}}</h3>
 
-  <form *ngIf="chooseFormRestaurant" #formRegisterR>
+  <form *ngIf="chooseFormRestaurant" #formRegisterR="ngForm">
 
     <label>Login:<br>
-    <input  [(ngModel)]="restaurant.username" type="text" required minlength="4"
-            name="username" placeholder="username" size="10" ></label><br>
+      <input  [(ngModel)]="restaurant.username" type="text"
+              [ngStyle]="{border: usernameRef.invalid && usernameRef.dirty?
+              '3px solid red': '3px solid green'}"
+              ngModel
+              #usernameRef = 'ngModel'
+              required minlength="4"
+              name="username" placeholder="username" size="10"></label><br>
 
     <label>Password:<br>
-    <input  [(ngModel)]="restaurant.password" type="password" required minlength="4"
-           name="password" placeholder="password" size="10"></label><br>
+      <input [(ngModel)]="restaurant.password" type="password"
+             [ngStyle]="{border: passwordRef.invalid && passwordRef.dirty?
+              '3px solid red': '3px solid green'}"
+             ngModel
+             #passwordRef = 'ngModel'
+             required minlength="4"
+             name="password" placeholder="password" size="10"></label><br>
 
     <label>Name of the Restaurant:<br>
     <input [(ngModel)]="restaurant.name" type="text"
+           [ngStyle]="{border: nameRef.invalid && nameRef.dirty?
+              '3px solid red': '3px solid green'}"
+           ngModel
+           #nameRef = 'ngModel'
+           required
            name="name" placeholder="name" size="40"></label><br>
-
 
     <label>Address of the Restaurant:<br>
     <input [(ngModel)]="restaurant.address" type="text"
+           [ngStyle]="{border: addressRef.invalid && addressRef.dirty?
+              '3px solid red': '3px solid green'}"
+           ngModel
+           #addressRef = 'ngModel'
+           required
            name="address" placeholder="address" size="80"></label><br>
 
     <label>Email:<br>
-    <input [(ngModel)]="restaurant.email" type="email"
-           name="email" placeholder="email" size="40"></label><br>
+      <input [(ngModel)]="restaurant.email" type="email"
+             [ngStyle]="{border: emailRef.invalid && emailRef.dirty?
+              '3px solid red': '3px solid green'}"
+             ngModel
+             #emailRef = 'ngModel'
+             required email
+             name="email" placeholder="email" size="40"></label><br>
 
     <label>Phone Number:<br>
     <input [(ngModel)]="restaurant.phoneNumber" type="text"
-           name="phone number" placeholder="phone number" size="17"></label><br>
+           [ngStyle]="{border: phoneNumberRef.invalid && phoneNumberRef.dirty?
+              '3px solid red': '3px solid green'}"
+           ngModel
+           #phoneNumberRef = 'ngModel'
+           required maxlength="12" pattern="\(?\d{3}\)?([-\/\.])\d{3}\1\d{4}"
+           name="phone number" placeholder="999-999-9999" size="12"></label><br>
 
-    <label>Additional Information:<br>
+    <label>Additional Information (Optional):<br>
     <input [(ngModel)]="restaurant.additionalInfo" type="text"
            name="additionalInfo" placeholder="additional information" size="80"></label><br>
 
-    <button  (click)="registerRestaurant(formRegisterR)" type="button">Sign In</button>
+    <button [disabled]="formRegisterR.invalid"
+      (click)="registerRestaurant(formRegisterR)" type="button">Sign In</button>
   </form>
 
 

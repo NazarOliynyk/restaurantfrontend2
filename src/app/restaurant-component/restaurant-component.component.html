@@ -15,45 +15,79 @@
 </form>
 
 
-<form *ngIf="showUpdateForm" #formToBeUpdated >
+<form *ngIf="showUpdateForm" #formToBeUpdated="ngForm" >
 
   <label>Name:
     <input [ngModel]="restaurant.name" [(ngModel)]="restaurantToUpdate.name" type="text"
            name="name" placeholder="name">
   </label><br>
+
   <label>Address:
     <input [ngModel]="restaurant.address" [(ngModel)]="restaurantToUpdate.address" type="text"
            name="address" placeholder="address">
   </label><br>
+
   <label>Email:
-    <input [ngModel]="restaurant.email" [(ngModel)]="restaurantToUpdate.email" type="text"
+    <input [ngModel]="restaurant.email" [(ngModel)]="restaurantToUpdate.email" type="email"
+           [ngStyle]="{border: emailRef.invalid && emailRef.dirty?
+           '3px solid red': '1px solid black'}"
+           ngModel
+           #emailRef = 'ngModel'
+           required email
            name="email" placeholder="email">
   </label><br>
+
   <label>Phone Number:
     <input [ngModel]="restaurant.phoneNumber" [(ngModel)]="restaurantToUpdate.phoneNumber" type="text"
-           name="phoneNumber" placeholder="phoneNumber">
+           [ngStyle]="{border: phoneNumberRef.invalid && phoneNumberRef.dirty?
+           '3px solid red': '1px solid black'}"
+           ngModel
+           #phoneNumberRef = 'ngModel'
+           required maxlength="12" pattern="\(?\d{3}\)?([-\/\.])\d{3}\1\d{4}"
+           name="phoneNumber" placeholder="999-999-9999">
   </label><br>
+
   <label>Additional Information:
     <input [ngModel]="restaurant.additionalInfo" [(ngModel)]="restaurantToUpdate.additionalInfo" type="text"
            name="additionalInfo" placeholder="additionalInfo">
   </label><br>
-  <button  (click)="updateRestaurant(formToBeUpdated)" type="button">Save Changes</button>
+
+  <button [disabled]="formToBeUpdated.invalid"
+    (click)="updateRestaurant(formToBeUpdated)" type="button">Save Changes</button>
 </form>
 <h4>{{responseOnUpdate}}</h4>
+
 <form *ngIf="showReset">
 <button (click)="resetInitialData()">Show initial Data</button>
 </form>
 <button (click)="changePassword(restaurant)">CHANGE PASSWORD</button>
 
-<form *ngIf="checkPassword" #changePasswordForm>
+<form *ngIf="checkPassword" #changePasswordForm="ngForm" >
+
   <label>Old Password:<br>
     <input [(ngModel)]="oldPassword" type="password"
+           [ngStyle]="{border: OldPasswordRef.invalid && OldPasswordRef.dirty?
+              '3px solid red': '3px solid green'}"
+           ngModel
+           #OldPasswordRef = 'ngModel'
+           required minlength="4"
            name="password" placeholder="password" size="10"></label><br>
+
   <label>New Password:<br>
     <input [(ngModel)]="newPassword" type="password"
+           [ngStyle]="{border: NewPasswordRef.invalid && NewPasswordRef.dirty?
+              '3px solid red': '3px solid green'}"
+           ngModel
+           #NewPasswordRef = 'ngModel'
+           required minlength="4"
            name="password" placeholder="password" size="10"></label><br>
-  <button (click)="sendPassword(changePasswordForm)">SET NEW PASSWORD</button><br>
+
+  <button [disabled]="changePasswordForm.invalid"
+          (click)="sendPassword(changePasswordForm)">SET NEW PASSWORD</button><br>
+
   {{resultCheckPassword}}
+
+
 </form>
 <form *ngIf="showGoToOptions" class="options">
   OPTIONS of Your Account:<br>

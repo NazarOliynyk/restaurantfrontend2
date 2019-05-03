@@ -33,15 +33,12 @@ export class AvatarComponentComponent implements OnInit {
   showFormAddAvatar = true;
   responseOnDelete = '';
 
-
-//   htmlTemplate = `
-// <h1>Angular Tutorials on Roufid.com</h1>
-// <strong><a href="javascript:alert('safe html')">Hello world !</a></strong>`;
-
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((data: Restaurant) => {
       this.restaurant = data;
     });
+    this.headersOption =
+      new HttpHeaders({'Authorization': localStorage.getItem('_token')});
   }
 
   backToAccount() {
@@ -53,8 +50,6 @@ export class AvatarComponentComponent implements OnInit {
     console.log('this.image.name: ' + this.imageToLoad.name);
     const formData: FormData = new FormData();
     formData.append('file', this.imageToLoad);
-    this.headersOption =
-      new HttpHeaders({'Authorization': localStorage.getItem('_token')});
     this.restaurantControllerService.saveAvatar(this.restaurant.id, formData, this.headersOption).
     subscribe(data => {this.responseOnSaveAvatar = data.text; },
       error1 => this.responseOnSaveAvatar = 'Failed to save!');
@@ -62,16 +57,10 @@ export class AvatarComponentComponent implements OnInit {
 
   getListOfAvatars(restaurant: Restaurant) {
     this.showListOfAvatars = true;
-    this.headersOption =
-      new HttpHeaders({'Authorization': localStorage.getItem('_token')});
-
-    // this.mainControllerService.getFiles(this.restaurant, this.headersOption).
-    // subscribe(images  => {this.images = images; },
-    //   error1 => {console.log('Failed to load avatar-list');
-    //   });
-
+    this.restaurant = restaurant;
     this.mainControllerService.getAvatars(this.restaurant, this.headersOption).
-      subscribe(avatars => this.avatars = avatars);
+      subscribe(avatars => {this.avatars = avatars;
+      console.log('this.avatars.length: ' + this.avatars.length); });
 
     // this.mainControllerService.getImages(this.restaurant, this.headersOption).
     //   subscribe((data: any[] ) => {
@@ -83,11 +72,11 @@ export class AvatarComponentComponent implements OnInit {
 
   delete(avatar: Avatar) {
     console.log(avatar.id);
-    this.headersOption =
-      new HttpHeaders({'Authorization': localStorage.getItem('_token')});
     this.restaurantControllerService.deleteAvatar(avatar.id, this.headersOption).
-    subscribe(data => {console.log(data); },
-      error1 => {console.log(error1); });
+    subscribe(data => {console.log(data.text);
+    this.responseOnDelete = data.text; },
+      error1 => {console.log(error1);
+    this.responseOnDelete = 'Failed to delete'; });
   }
 
   handleFileInput(files: FileList) {

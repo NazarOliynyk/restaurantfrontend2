@@ -19,7 +19,7 @@ import { OrderforclientComponentComponent } from './orderforclient-component/ord
 import { OrderforrestaurantComponentComponent } from './orderforrestaurant-component/orderforrestaurant-component.component';
 import { AvatarComponentComponent } from './avatar-component/avatar-component.component';
 import { ResponsesComponent } from './responses/responses.component';
-
+import { AdminComponentComponent } from './admin-component/admin-component.component';
 
 const routes: Routes = [
    {path: 'app', component: AppComponent},
@@ -53,6 +53,7 @@ const routes: Routes = [
     AvatarComponentComponent,
     SafeHtmlPipe,
     ResponsesComponent,
+    AdminComponentComponent
   ],
   imports: [
     BrowserModule,

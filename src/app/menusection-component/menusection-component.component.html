@@ -8,12 +8,18 @@
   <button (click)="backToAccount()">Get Back to my Account</button>
 </form>
 
-<form *ngIf="showFormAddMenuSection" #menuSectionForm >
+<form *ngIf="showFormAddMenuSection" #menuSectionForm="ngForm" >
 
   <label>Add a new Menu Section to the menu of your Restaurant:<br>
     <input  [(ngModel)]="menuSection.name" type="text"
+            [ngStyle]="{border: menuSectionRef.invalid && menuSectionRef.dirty?
+              '3px solid red': '3px solid green'}"
+            ngModel
+            #menuSectionRef = 'ngModel'
+            required
             name="name" placeholder="name" size="30"></label>
-  <button (click)="saveMenuSection(menuSectionForm)">Save Menu Section</button><br>
+  <button [disabled]="menuSectionForm.invalid"
+    (click)="saveMenuSection(menuSectionForm)">Save Menu Section</button><br>
   {{responseOnSaveMenuSection}}<br>
   {{responseOnDelete}}
 </form>

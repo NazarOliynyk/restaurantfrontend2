@@ -16,20 +16,42 @@
     </option>
   </select></label><br>
 
-<form  #mealForm >
+<form  #mealForm="ngForm">
 
     <label>NAME:
     <input  [(ngModel)]="meal.name" type="text"
+            [ngStyle]="{border: mealNameRef.invalid && mealNameRef.dirty?
+              '3px solid red': '3px solid green'}"
+            ngModel
+            #mealNameRef = 'ngModel'
+            required
             name="name" placeholder="name" size="30"></label><br>
     <label>DESCRIPTION:
     <input  [(ngModel)]="meal.description" type="text"
-          name="description" placeholder="description" size="30"></label><br>
+            [ngStyle]="{border: mealDescriptionRef.invalid && mealDescriptionRef.dirty?
+              '3px solid red': '3px solid green'}"
+            ngModel
+            #mealDescriptionRef = 'ngModel'
+            required
+            name="description" placeholder="description" size="30"></label><br>
     <label>QUANTITY:
     <input  [(ngModel)]="meal.quantity" type="text"
+            [ngStyle]="{border: mealQuantityRef.invalid && mealQuantityRef.dirty?
+              '3px solid red': '3px solid green'}"
+            ngModel
+            #mealQuantityRef = 'ngModel'
+            required
           name="quantity" placeholder="quantity" size="30"></label><br>
     <label>PRICE:
-    <input  [ngModel]="meal.price | number" (ngModelChange)="meal.price=$event.toLocaleString()" type="text"
+    <input  [ngModel]="meal.price"  type="text"
+            [ngStyle]="{border: mealPriceRef.invalid && mealPriceRef.dirty?
+              '3px solid red': '3px solid green'}"
+            ngModel
+            #mealPriceRef = 'ngModel'
+            required
             name="price" placeholder="price" size="30"></label><br>
+
+  <!--pattern="^[1-9]\d*(\.\d+)?$"-->
 
   <button (click)="saveMeal(mealForm)">Save Meal</button><br>
   {{responseOnSaveMeal}}
