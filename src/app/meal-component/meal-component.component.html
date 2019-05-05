@@ -16,7 +16,7 @@
     </option>
   </select></label><br>
 
-<form  #mealForm="ngForm">
+<form *ngIf="showFormAddMeal"  #mealForm="ngForm">
 
     <label>NAME:
     <input  [(ngModel)]="meal.name" type="text"
@@ -42,18 +42,18 @@
             #mealQuantityRef = 'ngModel'
             required
           name="quantity" placeholder="quantity" size="30"></label><br>
-    <label>PRICE:
-    <input  [ngModel]="meal.price"  type="text"
+
+  <label>PRICE:
+    <input  [(ngModel)]="priceOfMeal" type="text"
             [ngStyle]="{border: mealPriceRef.invalid && mealPriceRef.dirty?
               '3px solid red': '3px solid green'}"
             ngModel
             #mealPriceRef = 'ngModel'
-            required
-            name="price" placeholder="price" size="30"></label><br>
+            required pattern="^[1-9]\d*(\.\d+)?$"
+            name="priceOfMeal" placeholder="priceOfMeal" size="30" ></label><br>
 
-  <!--pattern="^[1-9]\d*(\.\d+)?$"-->
-
-  <button (click)="saveMeal(mealForm)">Save Meal</button><br>
+  <button [disabled]="mealForm.invalid"
+    (click)="saveMeal(mealForm)">Save Meal</button><br>
   {{responseOnSaveMeal}}
 
 </form>

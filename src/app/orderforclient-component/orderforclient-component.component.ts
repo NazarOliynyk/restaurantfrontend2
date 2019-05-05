@@ -8,6 +8,7 @@ import {HttpHeaders} from '@angular/common/http';
 import {Meal} from '../Models/Meal';
 import {OrderMeal} from '../Models/OrderMeal';
 import {ClientControllerService} from '../ControllerServices/client-controller.service';
+import {Avatar} from '../Models/Avatar';
 
 @Component({
   selector: 'app-orderforclient-component',
@@ -27,6 +28,7 @@ export class OrderforclientComponentComponent implements OnInit {
   mealsToBeAdded: Meal[] = [];
   order: OrderMeal = new OrderMeal();
   orders: OrderMeal[] = [];
+  avatars: Avatar [] = [];
   showMeals = false;
   showPreliminaryMenu = false;
   ids: number[] = [];
@@ -40,6 +42,7 @@ export class OrderforclientComponentComponent implements OnInit {
   responseNegativeInput = false;
   responseNegativeString = '';
   responseCreateOrder = '';
+  showAvatars = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private mainControllerService: MainControllerService,
@@ -175,5 +178,13 @@ export class OrderforclientComponentComponent implements OnInit {
     this.client = client;
     this.router.navigate(['responses'], {
       queryParams: {classType: 'client', r: this.restaurant.id, c: this.client.id}});
+  }
+
+  getImages(r: Restaurant) {
+    this.showAvatars = true;
+    this.restaurant = r;
+    this.mainControllerService.getAvatars(this.restaurant, this.headersOption).
+    subscribe(avatars => {this.avatars = avatars;
+      console.log('this.avatars.length: ' + this.avatars.length); });
   }
 }

@@ -72,9 +72,23 @@
        POSITIVE RATING: {{r.restaurantPositiveResponses}} <br>
        NEGATIVE RATING: {{r.restaurantNegativeResponses}} <br>
       <button (click)="goToThisRestaurant(r)">Go to this restaurant</button>
+      <button (click)="getImages(r)">Show Images</button>
       <button (click)="showResponses(r, client)">Show Responses</button>
     </div>
   </div>
+</form>
+
+<form *ngIf="showAvatars">
+  <h3> The images of this restaurant: </h3>
+  <ul>
+    <li *ngFor="let avatar of avatars">
+
+      <img [src]="'assets/images/'+avatar.image" alt="">
+
+      <p>{{avatar.image.toString()}}</p>
+    </li>
+  </ul>
+
 </form>
 
 

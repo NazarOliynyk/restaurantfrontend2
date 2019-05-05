@@ -6,6 +6,7 @@ import {RestaurantControllerService} from '../ControllerServices/restaurant-cont
 import {MenuSection} from '../Models/MenuSection';
 import {HttpHeaders} from '@angular/common/http';
 import {Meal} from '../Models/Meal';
+import {getTypeOf} from '@angular/core/testing/src/lang_utils';
 
 @Component({
   selector: 'app-meal-component',
@@ -29,7 +30,8 @@ export class MealComponentComponent implements OnInit {
   responseOnUpdate = '';
   showFormAddMeal = true;
   responseOnDelete = '';
-  name: string;
+  priceOfMeal = '';
+  name = '';
 
   constructor(private activatedRoute: ActivatedRoute,
               private mainControllerService: MainControllerService,
@@ -43,9 +45,6 @@ export class MealComponentComponent implements OnInit {
         new HttpHeaders({'Authorization': localStorage.getItem('_token')});
       this.mainControllerService.getMenuSections(this.restaurant, this.headersOption).
       subscribe(menuSections  => this.menuSections = menuSections);
-      for (const ms of this.menuSections) {
-        console.log(ms.name);
-      }
     });
 
   }
@@ -55,9 +54,16 @@ export class MealComponentComponent implements OnInit {
   }
 
   saveMeal(mealForm: HTMLFormElement) {
-    console.log(this.meal);
-    console.log(this.menuSection);
-    this.meal.menuSection = this.menuSection;
+
+    if (this.menuSection.name === '') {
+      this.menuSection.name = this.menuSections[0].name;
+    }
+      this.meal.menuSection = this.menuSection;
+
+    // if (typeof this.priceOfMeal === 'string') {
+    //   this.responseTypeOfPrice = 'Insert numbers only!';
+    // }
+    this.meal.price = parseFloat(this.priceOfMeal);
     this.restaurantControllerService.saveMeal(
       this.restaurant.id, this.meal, this.headersOption).
     subscribe(data => {this.responseOnSaveMeal = data.text; },
@@ -69,6 +75,7 @@ export class MealComponentComponent implements OnInit {
   }
 
   getListOfMeals(restaurant: Restaurant) {
+    this.showFormAddMeal = true;
     this.restaurant = restaurant;
       this.mainControllerService.getMeals(this.restaurant.id, this.headersOption).
       subscribe(data => {
@@ -81,6 +88,7 @@ export class MealComponentComponent implements OnInit {
   }
 
   update(meal:  Meal) {
+    this.showFormAddMeal = false;
     this.showListOfMeals = false;
     this.showUpdateForm = true;
     this.responseOnDelete = '';
@@ -100,6 +108,9 @@ export class MealComponentComponent implements OnInit {
   }
 
   updateMeal(formToBeUpdated: HTMLFormElement) {
+    if (this.menuSection.name === '') {
+      this.menuSection.name = this.meal.menuSection.name;
+    }
     this.mealToUpdate.id = this.meal.id;
     this.mealToUpdate.menuSection = this.menuSection;
     if (this.mealToUpdate.name === '') {
@@ -110,6 +121,7 @@ export class MealComponentComponent implements OnInit {
       this.mealToUpdate.quantity = this.meal.quantity; }
     if (this.mealToUpdate.price === 0) {
       this.mealToUpdate.price = this.meal.price; }
+
     this.restaurantControllerService.saveMeal(
       this.restaurant.id, this.mealToUpdate, this.headersOption).
     subscribe(data => {this.responseOnUpdate = data.text;
