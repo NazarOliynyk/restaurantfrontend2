@@ -66,6 +66,7 @@ export class OrderforclientComponentComponent implements OnInit {
   }
 
   goToThisRestaurant(restaurant: Restaurant) {
+    this.showAvatars = false;
     this.restaurant = restaurant;
     this.mainControllerService.getMeals(this.restaurant.id, this.headersOption).
     subscribe(meals => {this.meals = meals;
@@ -90,6 +91,7 @@ export class OrderforclientComponentComponent implements OnInit {
 
 
   createOrder() {
+    this.showAvatars = false;
     this.showPreliminaryMenu = false;
     for (const meal of this.mealsToBeAdded) {
       this.ids.push(meal.id);
@@ -101,6 +103,7 @@ export class OrderforclientComponentComponent implements OnInit {
   }
 
   watchAllOrders() {
+    this.showAvatars = false;
     this.showOrderList = true;
     this.showPreliminaryMenu = false;
     this.showRestaurantList = false;
@@ -115,6 +118,7 @@ export class OrderforclientComponentComponent implements OnInit {
   }
 
   getOrderMeals(o: OrderMeal) {
+    this.showAvatars = false;
       this.showMealsOfOrder = true;
       this.showRestaurantList = false;
       this.showOrderList = false;
@@ -174,6 +178,7 @@ export class OrderforclientComponentComponent implements OnInit {
   }
 
   showResponses(restaurant: Restaurant, client: Client) {
+    this.showAvatars = false;
     this.restaurant = restaurant;
     this.client = client;
     this.router.navigate(['responses'], {

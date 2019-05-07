@@ -1,10 +1,7 @@
 
 import { SafeHtmlPipe } from './Pipes/safe-html.pipe';
-
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { RegistrationComponent } from './registration-component/registration.component';
 import { LoginationComponent } from './logination-component/logination.component';
