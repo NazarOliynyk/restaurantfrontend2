@@ -34,9 +34,9 @@ export class ClientControllerService {
     (this.url + '/cancelOrderByClient/' + id, reasonOfCancelation, {headers: headersOption});
   }
 
-  confirmOrderServed(id: number, reasonOfCancelation: string, headersOption: HttpHeaders): Observable<ResponseTransfer> {
+  confirmOrderServed(id: number, s: string, headersOption: HttpHeaders): Observable<ResponseTransfer> {
     return this.http.post<ResponseTransfer>
-    (this.url + '/confirmOrderServed/' + id, reasonOfCancelation, {headers: headersOption});
+    (this.url + '/confirmOrderServed/' + id, s, {headers: headersOption});
   }
 
   negativeFromClient(id: number, descriptionFromClient: string, headersOption: HttpHeaders): Observable<ResponseTransfer> {

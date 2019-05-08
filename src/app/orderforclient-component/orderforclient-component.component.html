@@ -91,13 +91,21 @@
 
 </form>
 
+<form *ngIf="showMenuSections">
+  The list of sections of menu:
+  <div class="flex-container-5">
+      <div *ngFor="let ms of menuSections" class="flex-container1-div-small">
+        Section of menu: {{ms.name}}<br>
+        <button (click)="goToMenuSection(ms)">Go to this section</button>
+      </div>
+  </div>
+</form>
 
-
-<form *ngIf="showMeals">
-  The list of meals for this restaurant:
+<form *ngIf="showMealsOfMenuSection">
+  The list of meals for this Section:
   <div class="flex-container-5">
 
-    <div *ngFor="let m of meals" class="flex-container1-div">
+    <div *ngFor="let m of mealsOfMenuSection" class="flex-container1-div">
       Section Of Menu: {{m.menuSection.name}}<br>
       NAME: {{m.name}}<br>
       DESCRIPTION: {{m.description}}<br>
@@ -106,8 +114,25 @@
       <button (click)="addToMenu(m)">ADD TO MY MENU</button>
     </div>
   </div>
-  <h3>{{responseCreateOrder}}</h3>
 </form>
+
+<h3>{{responseCreateOrder}}</h3>
+
+<!--<form *ngIf="showMeals">-->
+  <!--The list of meals for this restaurant:-->
+  <!--<div class="flex-container-5">-->
+
+    <!--<div *ngFor="let m of meals" class="flex-container1-div">-->
+      <!--Section Of Menu: {{m.menuSection.name}}<br>-->
+      <!--NAME: {{m.name}}<br>-->
+      <!--DESCRIPTION: {{m.description}}<br>-->
+      <!--QUANTITY: {{m.quantity}}<br>-->
+      <!--PRICE: {{m.price}}<br>-->
+      <!--<button (click)="addToMenu(m)">ADD TO MY MENU</button>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<h3>{{responseCreateOrder}}</h3>-->
+<!--</form>-->
 
 <form  *ngIf="showPreliminaryMenu"  >
   The preliminary look of your order:

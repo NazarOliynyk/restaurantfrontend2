@@ -9,6 +9,7 @@ import {Meal} from '../Models/Meal';
 import {OrderMeal} from '../Models/OrderMeal';
 import {ClientControllerService} from '../ControllerServices/client-controller.service';
 import {Avatar} from '../Models/Avatar';
+import {MenuSection} from '../Models/MenuSection';
 
 @Component({
   selector: 'app-orderforclient-component',
@@ -24,6 +25,8 @@ export class OrderforclientComponentComponent implements OnInit {
   headersOption: HttpHeaders;
   meal: Meal = new Meal();
   meals: Meal[] = [];
+  menuSections: MenuSection [] = [];
+  mealsOfMenuSection: Meal [] = [];
   mealsOfOrder: Meal[] = [];
   mealsToBeAdded: Meal[] = [];
   order: OrderMeal = new OrderMeal();
@@ -43,6 +46,8 @@ export class OrderforclientComponentComponent implements OnInit {
   responseNegativeString = '';
   responseCreateOrder = '';
   showAvatars = false;
+  showMenuSections = false;
+  showMealsOfMenuSection = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private mainControllerService: MainControllerService,
@@ -72,7 +77,9 @@ export class OrderforclientComponentComponent implements OnInit {
     subscribe(meals => {this.meals = meals;
                               this.showMeals = true;
                               this.showRestaurantList = false; });
-
+    this.mainControllerService.getMenuSections(this.restaurant, this.headersOption).
+      subscribe(value => {this.menuSections = value;
+                              this.showMenuSections = true; });
   }
 
   addToMenu(m: Meal) {
@@ -113,6 +120,8 @@ export class OrderforclientComponentComponent implements OnInit {
     this.reasonOfCancelationInput = false;
     this.responsePositiveInput = false;
     this.responseNegativeInput = false;
+    this.showMealsOfMenuSection = false;
+    this.showMenuSections = false;
     this.mainControllerService.getClientOrders(this.client.id, this.headersOption).
     subscribe(orders => {this.orders = orders; });
   }
@@ -148,7 +157,7 @@ export class OrderforclientComponentComponent implements OnInit {
     this.order = o;
     console.log(this.order);
     this.clientControllerService.confirmOrderServed(this.order.id, 'Posted to served', this.headersOption).
-      subscribe(served => {this.responseOnAction = served.text; },
+      subscribe(value => {this.responseOnAction = value.text; },
       error1 => this.responseOnAction = 'ERROR: Failed to change status');
   }
 
@@ -191,5 +200,17 @@ export class OrderforclientComponentComponent implements OnInit {
     this.mainControllerService.getAvatars(this.restaurant, this.headersOption).
     subscribe(avatars => {this.avatars = avatars;
       console.log('this.avatars.length: ' + this.avatars.length); });
+  }
+
+  goToMenuSection(ms: MenuSection) {
+    this.mealsOfMenuSection = [];
+    console.log(ms.name);
+    this.showMealsOfMenuSection = true;
+    for (const meal of this.meals) {
+      if (meal.menuSection.name === ms.name) {
+        this.mealsOfMenuSection.push(meal);
+      }
+    }
+
   }
 }

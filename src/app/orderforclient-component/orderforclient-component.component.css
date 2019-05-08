@@ -11,6 +11,15 @@ button{
   line-height: 20px;
   font-size: 12px
 }
+.flex-container1-div-small{
+  background-color: rosybrown;
+  width: 200px;
+  height: 50px;
+  margin: 10px;
+  text-align: center;
+  line-height: 20px;
+  font-size: 12px
+}
 .flex-container-5 {
   display: flex;
   flex-wrap: wrap;
